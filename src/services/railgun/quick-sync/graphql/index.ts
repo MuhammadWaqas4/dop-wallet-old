@@ -2858,11 +2858,12 @@ export async function getMeshOptions(): Promise<GetMeshOptions> {
     logger: logger.child('ethereum'),
     importFn,
   });
+  //  'https://api.thegraph.com/subgraphs/name/railgun-community/railgun-v2-goerli', 
   const goerliHandler = new GraphqlHandler({
     name: 'goerli',
     config: {
       endpoint:
-        'https://api.thegraph.com/subgraphs/name/railgun-community/railgun-v2-goerli',
+        'https://api.thegraph.com/subgraphs/name/ammarsjw/dop-goerli',
     },
     baseDir,
     cache,

@@ -3363,7 +3363,7 @@ cipher-base@^1.0.0, cipher-base@^1.0.1, cipher-base@^1.0.3:
     inherits "^2.0.1"
     safe-buffer "^5.0.1"
 
-"circomlibjs@github:hsg88/circomlibjs#ffjavascrip.0.1.0":
+circomlibjs@hsg88/circomlibjs#ffjavascrip.0.1.0:
   version "0.0.8"
   resolved "https://codeload.github.com/hsg88/circomlibjs/tar.gz/fee5b3c479caa3db1e34cbfdedad763d74277844"
   dependencies:
@@ -3979,10 +3979,10 @@ dop-engineengine@5.3.2:
     levelup "^5.1.1"
     msgpack-lite "^0.1.26"
 
-dop-sharedmodels@5.3.6:
-  version "5.3.6"
-  resolved "https://registry.yarnpkg.com/dop-sharedmodels/-/dop-sharedmodels-5.3.6.tgz#9e470ae2f46cd06f437a3f3f78962a79957af395"
-  integrity sha512-9hqiaUkoc1Vu6y57NoXYH92Y3jPA56TeGuvaDIVHmPpmaHPuc8WnvsXsu6bEhY9mGhZX0Vp82ZfTV1YOAXoxVg==
+dop-sharedmodels@5.3.7:
+  version "5.3.7"
+  resolved "https://registry.yarnpkg.com/dop-sharedmodels/-/dop-sharedmodels-5.3.7.tgz#b8d7c4012e001b92b7d587f7bb7640c8ade4f5f7"
+  integrity sha512-q47YOCHM880B9e2a6wCBopVmhHu5VJqIXKFQ0Bsnk/OM2dkiCCT4Jp/BZJHzQD/QqLoM20554x3ugmChpB4Oew==
 
 dot-case@^3.0.4:
   version "3.0.4"
