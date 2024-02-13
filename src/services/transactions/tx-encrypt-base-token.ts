@@ -14,7 +14,7 @@ import {
 import { assertNotBlockedAddress } from '../../utils/blocked-address';
 import {
   randomHex,
-  ShieldNoteERC20,
+  EncryptNoteERC20,
   RailgunEngine,
   hexToBytes,
 } from 'dop-engineengine';
@@ -22,10 +22,10 @@ import { assertValidRailgunAddress } from '../railgun';
 import { reportAndSanitizeError } from '../../utils/error';
 import { ContractTransaction } from 'ethers';
 
-const generateShieldBaseTokenTransaction = async (
+const generateEncryptBaseTokenTransaction = async (
   networkName: NetworkName,
   railgunAddress: string,
-  shieldPrivateKey: string,
+  encryptPrivateKey: string,
   wrappedERC20Amount: RailgunERC20Amount,
 ): Promise<ContractTransaction> => {
   try {
@@ -36,46 +36,46 @@ const generateShieldBaseTokenTransaction = async (
 
     const { amount, tokenAddress } = wrappedERC20Amount;
 
-    const shield = new ShieldNoteERC20(
+    const encrypt = new EncryptNoteERC20(
       masterPublicKey,
       random,
       amount,
       tokenAddress,
     );
 
-    const shieldRequest = await shield.serialize(
-      hexToBytes(shieldPrivateKey),
+    const encryptRequest = await encrypt.serialize(
+      hexToBytes(encryptPrivateKey),
       viewingPublicKey,
     );
 
-    const transaction = await relayAdaptContract.populateShieldBaseToken(
-      shieldRequest,
+    const transaction = await relayAdaptContract.populateEncryptBaseToken(
+      encryptRequest,
     );
 
     return transaction;
   } catch (err) {
     const sanitizedError = reportAndSanitizeError(
-      generateShieldBaseTokenTransaction.name,
+      generateEncryptBaseTokenTransaction.name,
       err,
     );
     throw sanitizedError;
   }
 };
 
-export const populateShieldBaseToken = async (
+export const populateEncryptBaseToken = async (
   networkName: NetworkName,
   railgunAddress: string,
-  shieldPrivateKey: string,
+  encryptPrivateKey: string,
   wrappedERC20Amount: RailgunERC20Amount,
   gasDetails?: TransactionGasDetails,
 ): Promise<RailgunPopulateTransactionResponse> => {
   try {
     assertValidRailgunAddress(railgunAddress);
 
-    const transaction = await generateShieldBaseTokenTransaction(
+    const transaction = await generateEncryptBaseTokenTransaction(
       networkName,
       railgunAddress,
-      shieldPrivateKey,
+      encryptPrivateKey,
       wrappedERC20Amount,
     );
 
@@ -93,14 +93,14 @@ export const populateShieldBaseToken = async (
       transaction,
     };
   } catch (err) {
-    throw reportAndSanitizeError(populateShieldBaseToken.name, err);
+    throw reportAndSanitizeError(populateEncryptBaseToken.name, err);
   }
 };
 
-export const gasEstimateForShieldBaseToken = async (
+export const gasEstimateForEncryptBaseToken = async (
   networkName: NetworkName,
   railgunAddress: string,
-  shieldPrivateKey: string,
+  encryptPrivateKey: string,
   wrappedERC20Amount: RailgunERC20Amount,
   fromWalletAddress: string,
 ): Promise<RailgunTransactionGasEstimateResponse> => {
@@ -108,10 +108,10 @@ export const gasEstimateForShieldBaseToken = async (
     assertValidRailgunAddress(railgunAddress);
     assertNotBlockedAddress(fromWalletAddress);
 
-    const transaction = await generateShieldBaseTokenTransaction(
+    const transaction = await generateEncryptBaseTokenTransaction(
       networkName,
       railgunAddress,
-      shieldPrivateKey,
+      encryptPrivateKey,
       wrappedERC20Amount,
     );
 
@@ -129,6 +129,6 @@ export const gasEstimateForShieldBaseToken = async (
       isGasEstimateWithDummyProof,
     );
   } catch (err) {
-    throw reportAndSanitizeError(gasEstimateForShieldBaseToken.name, err);
+    throw reportAndSanitizeError(gasEstimateForEncryptBaseToken.name, err);
   }
 };

@@ -22,10 +22,10 @@ import {
   MOCK_TOKEN_ADDRESS_2,
 } from '../../../tests/mocks.test';
 import {
-  populateShield,
-  gasEstimateForShield,
-  getShieldPrivateKeySignatureMessage,
-} from '../tx-shield';
+  populateEncrypt,
+  gasEstimateForEncrypt,
+  getEncryptPrivateKeySignatureMessage,
+} from '../tx-encrypt';
 import { createRailgunWallet } from '../../railgun/wallets/wallets';
 import { getRandomBytes } from '../../railgun';
 import { FallbackProvider } from 'ethers';
@@ -33,7 +33,7 @@ import { FallbackProvider } from 'ethers';
 let gasEstimateStub: SinonStub;
 let sendTxStub: SinonStub;
 
-const shieldPrivateKey = getRandomBytes(32);
+const encryptPrivateKey = getRandomBytes(32);
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
@@ -85,7 +85,7 @@ const stubFailure = () => {
   ).rejects(new Error('test rejection - gas estimate'));
 };
 
-describe('tx-shield', () => {
+describe('tx-encrypt', () => {
   before(async function run() {
     this.timeout(5000);
     initTestEngine();
@@ -104,15 +104,15 @@ describe('tx-shield', () => {
     await closeTestEngine();
   });
 
-  it('Should get expected signature message for shieldPrivateKey', () => {
-    expect(getShieldPrivateKeySignatureMessage()).to.equal('RAILGUN_SHIELD');
+  it('Should get expected signature message for encryptPrivateKey', () => {
+    expect(getEncryptPrivateKeySignatureMessage()).to.equal('RAILGUN_SHIELD');
   });
 
-  it('Should get gas estimate for valid shield', async () => {
+  it('Should get gas estimate for valid encrypt', async () => {
     stubSuccess();
-    const rsp = await gasEstimateForShield(
+    const rsp = await gasEstimateForEncrypt(
       NetworkName.Polygon,
-      shieldPrivateKey,
+      encryptPrivateKey,
       MOCK_TOKEN_AMOUNT_RECIPIENTS,
       MOCK_NFT_AMOUNT_RECIPIENTS,
       MOCK_ETH_WALLET_ADDRESS,
@@ -120,12 +120,12 @@ describe('tx-shield', () => {
     expect(rsp.gasEstimate).to.equal(200n);
   });
 
-  it('Should error on gas estimates for invalid shield', async () => {
+  it('Should error on gas estimates for invalid encrypt', async () => {
     stubSuccess();
     await expect(
-      gasEstimateForShield(
+      gasEstimateForEncrypt(
         NetworkName.Polygon,
-        shieldPrivateKey,
+        encryptPrivateKey,
         MOCK_TOKEN_AMOUNT_RECIPIENTS_INVALID,
         MOCK_NFT_AMOUNT_RECIPIENTS,
         MOCK_ETH_WALLET_ADDRESS,
@@ -136,9 +136,9 @@ describe('tx-shield', () => {
   it('Should error for ethers rejections', async () => {
     stubFailure();
     await expect(
-      gasEstimateForShield(
+      gasEstimateForEncrypt(
         NetworkName.Polygon,
-        shieldPrivateKey,
+        encryptPrivateKey,
         MOCK_TOKEN_AMOUNT_RECIPIENTS,
         MOCK_NFT_AMOUNT_RECIPIENTS,
         MOCK_ETH_WALLET_ADDRESS,
@@ -146,11 +146,11 @@ describe('tx-shield', () => {
     ).rejectedWith('test rejection - gas estimate');
   });
 
-  it('Should send tx for valid shield - no gas details', async () => {
+  it('Should send tx for valid encrypt - no gas details', async () => {
     stubSuccess();
-    const { transaction } = await populateShield(
+    const { transaction } = await populateEncrypt(
       NetworkName.Polygon,
-      shieldPrivateKey,
+      encryptPrivateKey,
       MOCK_TOKEN_AMOUNT_RECIPIENTS,
       MOCK_NFT_AMOUNT_RECIPIENTS,
       undefined, // gasDetails
@@ -166,11 +166,11 @@ describe('tx-shield', () => {
     expect(transaction.maxPriorityFeePerGas).to.be.undefined;
   });
 
-  it('Should send tx for valid shield - gas details', async () => {
+  it('Should send tx for valid encrypt - gas details', async () => {
     stubSuccess();
-    const { transaction } = await populateShield(
+    const { transaction } = await populateEncrypt(
       NetworkName.Polygon,
-      shieldPrivateKey,
+      encryptPrivateKey,
       MOCK_TOKEN_AMOUNT_RECIPIENTS,
       MOCK_NFT_AMOUNT_RECIPIENTS,
       gasDetails,
@@ -186,12 +186,12 @@ describe('tx-shield', () => {
     expect(transaction.maxPriorityFeePerGas).to.equal(BigInt('0x0100'));
   });
 
-  it('Should error on send tx for invalid shield', async () => {
+  it('Should error on send tx for invalid encrypt', async () => {
     stubSuccess();
     await expect(
-      populateShield(
+      populateEncrypt(
         NetworkName.Polygon,
-        shieldPrivateKey,
+        encryptPrivateKey,
         MOCK_TOKEN_AMOUNT_RECIPIENTS_INVALID,
         MOCK_NFT_AMOUNT_RECIPIENTS,
         gasDetails,

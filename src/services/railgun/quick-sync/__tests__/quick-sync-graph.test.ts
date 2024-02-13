@@ -91,7 +91,7 @@ describe('quick-sync-graph', () => {
     expect(eventLog.nullifierEvents.length).to.be.at.least(
       EXPECTED_NULLIFIER_EVENTS_ETH,
     );
-    expect(eventLog.unshieldEvents.length).to.be.at.least(
+    expect(eventLog.decryptEvents.length).to.be.at.least(
       EXPECTED_UNSHIELD_EVENTS_ETH,
     );
 
@@ -109,10 +109,10 @@ describe('quick-sync-graph', () => {
     expect(eventLog.nullifierEvents.length).to.be.at.least(
       EXPECTED_NULLIFIER_EVENTS_POLYGON,
     );
-    expect(eventLog.unshieldEvents.length).to.be.at.least(
+    expect(eventLog.decryptEvents.length).to.be.at.least(
       EXPECTED_UNSHIELD_EVENTS_POLYGON,
     );
-    expect(eventLog.unshieldEvents.length).to.be.at.least(
+    expect(eventLog.decryptEvents.length).to.be.at.least(
       EXPECTED_UNSHIELD_EVENTS_POLYGON,
     );
 
@@ -130,7 +130,7 @@ describe('quick-sync-graph', () => {
     expect(eventLog.nullifierEvents.length).to.be.at.least(
       EXPECTED_NULLIFIER_EVENTS_BNB,
     );
-    expect(eventLog.unshieldEvents.length).to.be.at.least(
+    expect(eventLog.decryptEvents.length).to.be.at.least(
       EXPECTED_UNSHIELD_EVENTS_BNB,
     );
 
@@ -148,7 +148,7 @@ describe('quick-sync-graph', () => {
     expect(eventLog.nullifierEvents.length).to.be.at.least(
       EXPECTED_NULLIFIER_EVENTS_POLYGON_MUMBAI,
     );
-    expect(eventLog.unshieldEvents.length).to.be.at.least(
+    expect(eventLog.decryptEvents.length).to.be.at.least(
       EXPECTED_UNSHIELD_EVENTS_POLYGON_MUMBAI,
     );
 
@@ -166,7 +166,7 @@ describe('quick-sync-graph', () => {
     expect(eventLog.nullifierEvents.length).to.be.at.least(
       EXPECTED_NULLIFIER_EVENTS_ARBITRUM,
     );
-    expect(eventLog.unshieldEvents.length).to.be.at.least(
+    expect(eventLog.decryptEvents.length).to.be.at.least(
       EXPECTED_UNSHIELD_EVENTS_ARBITRUM,
     );
 
@@ -184,7 +184,7 @@ describe('quick-sync-graph', () => {
     expect(eventLog.nullifierEvents.length).to.be.at.least(
       EXPECTED_NULLIFIER_EVENTS_GOERLI,
     );
-    expect(eventLog.unshieldEvents.length).to.be.at.least(
+    expect(eventLog.decryptEvents.length).to.be.at.least(
       EXPECTED_UNSHIELD_EVENTS_GOERLI,
     );
 
@@ -202,7 +202,7 @@ describe('quick-sync-graph', () => {
     expect(eventLog.nullifierEvents.length).to.be.at.least(
       EXPECTED_NULLIFIER_EVENTS_ARBITRUM_GOERLI,
     );
-    expect(eventLog.unshieldEvents.length).to.be.at.least(
+    expect(eventLog.decryptEvents.length).to.be.at.least(
       EXPECTED_UNSHIELD_EVENTS_ARBITRUM_GOERLI,
     );
 
@@ -217,6 +217,6 @@ describe('quick-sync-graph', () => {
     expect(eventLog.nullifierEvents).to.be.an('array');
     expect(eventLog.commitmentEvents.length).to.equal(0);
     expect(eventLog.nullifierEvents.length).to.equal(0);
-    expect(eventLog.unshieldEvents.length).to.equal(0);
+    expect(eventLog.decryptEvents.length).to.equal(0);
   }).timeout(45000);
 });

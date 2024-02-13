@@ -59,7 +59,7 @@ let gasEstimateStub: SinonStub;
 let railProveStub: SinonStub;
 let railDummyProveStub: SinonStub;
 let relayAdaptPopulateCrossContractCalls: SinonStub;
-let addUnshieldDataSpy: SinonSpy;
+let addDecryptDataSpy: SinonSpy;
 let erc20NoteSpy: SinonSpy;
 
 let railgunWallet: RailgunWallet;
@@ -132,8 +132,8 @@ const stubGasEstimateFailure = () => {
   ).rejects(new Error('test rejection - gas estimate'));
 };
 
-const spyOnSetUnshield = () => {
-  addUnshieldDataSpy = Sinon.spy(TransactionBatch.prototype, 'addUnshieldData');
+const spyOnSetDecrypt = () => {
+  addDecryptDataSpy = Sinon.spy(TransactionBatch.prototype, 'addDecryptData');
 };
 
 describe('tx-cross-contract-calls', () => {
@@ -191,7 +191,7 @@ describe('tx-cross-contract-calls', () => {
   });
   afterEach(() => {
     gasEstimateStub?.restore();
-    addUnshieldDataSpy?.restore();
+    addDecryptDataSpy?.restore();
     erc20NoteSpy?.restore();
   });
   after(async () => {
@@ -205,7 +205,7 @@ describe('tx-cross-contract-calls', () => {
 
   it('Should get gas estimates for valid cross contract calls', async () => {
     stubGasEstimateSuccess();
-    spyOnSetUnshield();
+    spyOnSetDecrypt();
     const rsp = await gasEstimateForUnprovenCrossContractCalls(
       NetworkName.Polygon,
       railgunWallet.id,
@@ -224,8 +224,8 @@ describe('tx-cross-contract-calls', () => {
     expect(rsp.relayerFeeCommitment?.commitmentCiphertext).to.deep.equal(
       MOCK_FORMATTED_RELAYER_FEE_COMMITMENT_CIPHERTEXT,
     );
-    expect(addUnshieldDataSpy.called).to.be.true;
-    expect(addUnshieldDataSpy.args).to.deep.equal([
+    expect(addDecryptDataSpy.called).to.be.true;
+    expect(addDecryptDataSpy.args).to.deep.equal([
       [
         {
           toAddress: polygonRelayAdaptContract,
@@ -298,7 +298,7 @@ describe('tx-cross-contract-calls', () => {
 
   it('Should get gas estimates for valid cross contract calls, public wallet', async () => {
     stubGasEstimateSuccess();
-    spyOnSetUnshield();
+    spyOnSetDecrypt();
     const rsp = await gasEstimateForUnprovenCrossContractCalls(
       NetworkName.Polygon,
       railgunWallet.id,
@@ -315,8 +315,8 @@ describe('tx-cross-contract-calls', () => {
     );
 
     expect(rsp.relayerFeeCommitment).to.be.undefined;
-    expect(addUnshieldDataSpy.called).to.be.true;
-    expect(addUnshieldDataSpy.args).to.deep.equal([
+    expect(addDecryptDataSpy.called).to.be.true;
+    expect(addDecryptDataSpy.args).to.deep.equal([
       [
         {
           toAddress: polygonRelayAdaptContract,
@@ -402,7 +402,7 @@ describe('tx-cross-contract-calls', () => {
   it('Should populate tx for valid cross contract calls', async () => {
     stubGasEstimateSuccess();
     setCachedProvedTransaction(undefined);
-    spyOnSetUnshield();
+    spyOnSetDecrypt();
     await generateCrossContractCallsProof(
       NetworkName.Polygon,
       railgunWallet.id,
@@ -418,8 +418,8 @@ describe('tx-cross-contract-calls', () => {
       minGasLimit,
       () => {}, // progressCallback
     );
-    expect(addUnshieldDataSpy.called).to.be.true;
-    expect(addUnshieldDataSpy.args).to.deep.equal([
+    expect(addDecryptDataSpy.called).to.be.true;
+    expect(addDecryptDataSpy.args).to.deep.equal([
       [
         {
           toAddress: polygonRelayAdaptContract,
@@ -532,7 +532,7 @@ describe('tx-cross-contract-calls', () => {
         gasDetails,
       ),
     ).rejectedWith(
-      'Invalid proof for this transaction. Mismatch: relayAdaptUnshieldERC20Amounts.',
+      'Invalid proof for this transaction. Mismatch: relayAdaptDecryptERC20Amounts.',
     );
   });
 
@@ -588,7 +588,7 @@ describe('tx-cross-contract-calls', () => {
         gasDetails,
       ),
     ).rejectedWith(
-      'Invalid proof for this transaction. Mismatch: relayAdaptUnshieldERC20Amounts.',
+      'Invalid proof for this transaction. Mismatch: relayAdaptDecryptERC20Amounts.',
     );
   });
 

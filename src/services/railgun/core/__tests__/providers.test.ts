@@ -41,8 +41,8 @@ describe('providers', () => {
       10000, // pollingInterval
     );
     expect(response.feesSerialized).to.deep.equal({
-      shield: '25',
-      unshield: '25',
+      encrypt: '25',
+      decrypt: '25',
       nft: '25',
     });
 

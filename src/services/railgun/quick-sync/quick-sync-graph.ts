@@ -13,7 +13,7 @@ import {
   GraphCommitmentBatch,
   formatGraphCommitmentEvents,
   formatGraphNullifierEvents,
-  formatGraphUnshieldEvents,
+  formatGraphDecryptEvents,
 } from './graph-type-formatters';
 
 const meshes: MapType<MeshInstance> = {};
@@ -57,7 +57,7 @@ export const quickSyncGraph = async (
 
   const sdk = getBuiltGraphSDK(network.name);
 
-  const [nullifiers, unshields, commitments] = await Promise.all([
+  const [nullifiers, decrypts, commitments] = await Promise.all([
     autoPaginatingQuery(
       async (blockNumber: string) =>
         (
@@ -70,10 +70,10 @@ export const quickSyncGraph = async (
     autoPaginatingQuery(
       async (blockNumber: string) =>
         (
-          await sdk.Unshields({
+          await sdk.Decrypts({
             blockNumber,
           })
-        ).unshields,
+        ).decrypts,
       startingBlock.toString(),
     ),
     autoPaginatingQuery(
@@ -88,7 +88,7 @@ export const quickSyncGraph = async (
   ]);
 
   const filteredNullifiers = removeDuplicatesByID(nullifiers);
-  const filteredUnshields = removeDuplicatesByID(unshields);
+  const filteredDecrypts = removeDuplicatesByID(decrypts);
   const filteredCommitments = removeDuplicatesByID(commitments);
   const graphCommitmentBatches =
     createGraphCommitmentBatches(filteredCommitments);
@@ -96,10 +96,10 @@ export const quickSyncGraph = async (
   graphCommitmentBatches.sort(sortByTreeNumberAndStartPosition);
 
   const nullifierEvents = formatGraphNullifierEvents(filteredNullifiers);
-  const unshieldEvents = formatGraphUnshieldEvents(filteredUnshields);
+  const decryptEvents = formatGraphDecryptEvents(filteredDecrypts);
   const commitmentEvents = formatGraphCommitmentEvents(graphCommitmentBatches);
 
-  return { nullifierEvents, unshieldEvents, commitmentEvents };
+  return { nullifierEvents, decryptEvents, commitmentEvents };
 };
 
 const createGraphCommitmentBatches = (

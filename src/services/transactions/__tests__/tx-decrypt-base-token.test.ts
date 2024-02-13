@@ -18,9 +18,9 @@ import {
   MOCK_TOKEN_AMOUNTS,
 } from '../../../tests/mocks.test';
 import {
-  populateShieldBaseToken,
-  gasEstimateForShieldBaseToken,
-} from '../tx-shield-base-token';
+  populateEncryptBaseToken,
+  gasEstimateForEncryptBaseToken,
+} from '../tx-encrypt-base-token';
 import { createRailgunWallet } from '../../railgun/wallets/wallets';
 import { randomHex } from 'dop-engineengine';
 import { FallbackProvider } from 'ethers';
@@ -29,7 +29,7 @@ let gasEstimateStub: SinonStub;
 let sendTxStub: SinonStub;
 let railgunAddress: string;
 
-const shieldPrivateKey = randomHex(32);
+const encryptPrivateKey = randomHex(32);
 
 chai.use(chaiAsPromised);
 const { expect } = chai;
@@ -55,7 +55,7 @@ const stubFailure = () => {
   ).rejects(new Error('test rejection - gas estimate'));
 };
 
-describe('tx-shield-base-token', () => {
+describe('tx-encrypt-base-token', () => {
   before(async function run() {
     this.timeout(5000);
     initTestEngine();
@@ -76,25 +76,25 @@ describe('tx-shield-base-token', () => {
     await closeTestEngine();
   });
 
-  it('Should get gas estimate for valid shield base token', async () => {
+  it('Should get gas estimate for valid encrypt base token', async () => {
     stubSuccess();
-    const rsp = await gasEstimateForShieldBaseToken(
+    const rsp = await gasEstimateForEncryptBaseToken(
       NetworkName.Polygon,
       railgunAddress,
-      shieldPrivateKey,
+      encryptPrivateKey,
       MOCK_TOKEN_AMOUNTS[0],
       MOCK_ETH_WALLET_ADDRESS,
     );
     expect(rsp.gasEstimate).to.equal(200n);
   });
 
-  it('Should error on gas estimates for invalid shield base token', async () => {
+  it('Should error on gas estimates for invalid encrypt base token', async () => {
     stubSuccess();
     await expect(
-      gasEstimateForShieldBaseToken(
+      gasEstimateForEncryptBaseToken(
         NetworkName.Polygon,
         '123456789',
-        shieldPrivateKey,
+        encryptPrivateKey,
         MOCK_TOKEN_AMOUNTS[0],
         MOCK_ETH_WALLET_ADDRESS,
       ),
@@ -104,22 +104,22 @@ describe('tx-shield-base-token', () => {
   it('Should error for ethers rejections', async () => {
     stubFailure();
     await expect(
-      gasEstimateForShieldBaseToken(
+      gasEstimateForEncryptBaseToken(
         NetworkName.Polygon,
         railgunAddress,
-        shieldPrivateKey,
+        encryptPrivateKey,
         MOCK_TOKEN_AMOUNTS[0],
         MOCK_ETH_WALLET_ADDRESS,
       ),
     ).rejectedWith('test rejection - gas estimate');
   });
 
-  it('Should send tx for valid shield base token', async () => {
+  it('Should send tx for valid encrypt base token', async () => {
     stubSuccess();
-    const { transaction } = await populateShieldBaseToken(
+    const { transaction } = await populateEncryptBaseToken(
       NetworkName.Polygon,
       railgunAddress,
-      shieldPrivateKey,
+      encryptPrivateKey,
       MOCK_TOKEN_AMOUNTS[0],
       gasDetails,
     );
@@ -128,13 +128,13 @@ describe('tx-shield-base-token', () => {
     expect(transaction.to).to.be.a('string');
   });
 
-  it('Should error on send tx for invalid shield base token', async () => {
+  it('Should error on send tx for invalid encrypt base token', async () => {
     stubSuccess();
     await expect(
-      populateShieldBaseToken(
+      populateEncryptBaseToken(
         NetworkName.Polygon,
         '123456789',
-        shieldPrivateKey,
+        encryptPrivateKey,
         MOCK_TOKEN_AMOUNTS[0],
         gasDetails,
       ),

@@ -3957,10 +3957,10 @@ dop-curve25519-scalarmult-wasm@1.0.3:
   resolved "https://registry.yarnpkg.com/dop-curve25519-scalarmult-wasm/-/dop-curve25519-scalarmult-wasm-1.0.3.tgz#0f59d90d53f36ba79af6c3878cc23bd9139e594d"
   integrity sha512-S+tKEp9rqnzOIvufcrxZVV4K+4in7ekxZz73fagP5vU+LVJOB+tSytVTl2CCjjnsKBUXKjRF46XVRhFFR9X5+A==
 
-dop-engineengine@5.3.2:
-  version "5.3.2"
-  resolved "https://registry.yarnpkg.com/dop-engineengine/-/dop-engineengine-5.3.2.tgz#02c79fb3b865a37bb4598ee78c1b71d73e62f2ae"
-  integrity sha512-FasiZ7fgOPOczFzne+wrkGRccgjS1P6kSjQZePXLBxvexNMify0e9V8P6zaCtVNs4VON7qOeJPpwfuFc+deRIQ==
+dop-engineengine@5.3.5:
+  version "5.3.5"
+  resolved "https://registry.yarnpkg.com/dop-engineengine/-/dop-engineengine-5.3.5.tgz#30e47b2a7feda0b18b911bed230cff6a2ac70145"
+  integrity sha512-bBwtb3s8Z52D9YzHmcCRcgwTw1c/+ukUp+G4VdeRd/Og81sGYjQBG8EpUzHJ8u/t7SCo9ah53QOWJpR0KhBNpg==
   dependencies:
     "@noble/ed25519" "^1.7.1"
     "@noble/hashes" "^1.3.0"
@@ -3979,10 +3979,10 @@ dop-engineengine@5.3.2:
     levelup "^5.1.1"
     msgpack-lite "^0.1.26"
 
-dop-sharedmodels@5.3.7:
-  version "5.3.7"
-  resolved "https://registry.yarnpkg.com/dop-sharedmodels/-/dop-sharedmodels-5.3.7.tgz#b8d7c4012e001b92b7d587f7bb7640c8ade4f5f7"
-  integrity sha512-q47YOCHM880B9e2a6wCBopVmhHu5VJqIXKFQ0Bsnk/OM2dkiCCT4Jp/BZJHzQD/QqLoM20554x3ugmChpB4Oew==
+dop-sharedmodels@5.4.4:
+  version "5.4.4"
+  resolved "https://registry.yarnpkg.com/dop-sharedmodels/-/dop-sharedmodels-5.4.4.tgz#1c241a8a0c45038f180e3ffcd5cb7e96f480b68e"
+  integrity sha512-xJnVzpYgor7ns9Ef27CSMYjhvDpKtJpCx/lp58ZKRYchkmzmaL7drV2wplHlAHKlVK+MT1XxP3sj3mkC7B/LXw==
 
 dot-case@^3.0.4:
   version "3.0.4"

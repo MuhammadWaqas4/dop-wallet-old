@@ -89,30 +89,30 @@ describe.skip('tx-proofs', () => {
       recipientAddress: relayerRailgunAddress,
     };
 
-    const mockShieldAmount = BigInt('12500000000');
+    const mockEncryptAmount = BigInt('12500000000');
     const tokenData = getTokenDataERC20(MOCK_TOKEN_ADDRESS);
     const random = nToHex(
       BigInt('147663908922529969478643753345904959450'),
       ByteLength.UINT_128,
     );
 
-    const shieldNote = TransactNote.createTransfer(
+    const encryptNote = TransactNote.createTransfer(
       receiverAddressData,
       railgunWallet.addressKeys,
       random,
-      mockShieldAmount,
+      mockEncryptAmount,
       tokenData,
       railgunWallet.getViewingKeyPair(),
       true, // showSenderAddressToRecipient
       OutputType.Transfer,
       MOCK_MEMO,
     );
-    expect(shieldNote.notePublicKey).to.equal(
+    expect(encryptNote.notePublicKey).to.equal(
       BigInt(
         '8646677792808778106426841491192581170072532636409694279739894688473037283422',
       ),
     );
-    expect(shieldNote.hash).to.equal(
+    expect(encryptNote.hash).to.equal(
       BigInt(
         '17847544257240351011885349052582675772817264504940544227356428415831210506037',
       ),
@@ -123,14 +123,14 @@ describe.skip('tx-proofs', () => {
 
     // const balances: Balances = {
     //   [tokenAddress]: {
-    //     balance: mockShieldAmount,
+    //     balance: mockEncryptAmount,
     //     utxos: [
     //       {
     //         tree: 0,
     //         position: 0,
     //         txid: '123',
     //         spendtxid: '123',
-    //         note: shieldNote,
+    //         note: encryptNote,
     //       },
     //     ],
     //   },
@@ -144,19 +144,19 @@ describe.skip('tx-proofs', () => {
     // const chainID = network.chainId;
 
     // const vpk = railgunWallet.getViewingKeyPair().privateKey;
-    // const shield = new ShieldNote(
+    // const encrypt = new EncryptNote(
     //   addressData.masterPublicKey,
     //   randomHex(16),
-    //   mockShieldAmount,
+    //   mockEncryptAmount,
     //   MOCK_TOKEN_ADDRESS,
     // );
-    // const { preImage, encryptedRandom } = shield.serialize(vpk);
+    // const { preImage, encryptedRandom } = encrypt.serialize(vpk);
 
     // const commitment: GeneratedCommitment = {
     //   hash: '',
     //   txid: '123',
     //   preImage: {
-    //     value: nToHex(shield.value, ByteLength.UINT_128),
+    //     value: nToHex(encrypt.value, ByteLength.UINT_128),
     //     npk: preImage.npk,
     //     token: preImage.token,
     //   },

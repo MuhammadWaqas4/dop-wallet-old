@@ -12,8 +12,8 @@ The repo is written in TypeScript, and compatible with node.js and modern web br
 
 RAILGUN Wallet SDK enables dApp and DeFi developers to:
 
-- [Shield ERC-20 tokens](https://railgun-privacy.gitbook.io/developer-guide/wallet/transactions/shielding/) and NFTs
-- Manage [shielded balances](https://railgun-privacy.gitbook.io/developer-guide/wallet/shielded-balances/)
+- [Encrypt ERC-20 tokens](https://railgun-privacy.gitbook.io/developer-guide/wallet/transactions/encrypting/) and NFTs
+- Manage [encrypted balances](https://railgun-privacy.gitbook.io/developer-guide/wallet/encrypted-balances/)
 - [Transfer tokens](https://railgun-privacy.gitbook.io/developer-guide/wallet/transactions/private-transfers) privately
 - [Interact with any smart contract](https://railgun-privacy.gitbook.io/developer-guide/wallet/transactions/cross-contract-calls) privately
 

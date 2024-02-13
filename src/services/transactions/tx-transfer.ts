@@ -39,10 +39,10 @@ export const populateProvedTransfer = async (
       memoText,
       erc20AmountRecipients,
       nftAmountRecipients,
-      undefined, // relayAdaptUnshieldERC20AmountRecipients
-      undefined, // relayAdaptUnshieldNFTAmounts
-      undefined, // relayAdaptShieldERC20Recipients
-      undefined, // relayAdaptShieldNFTRecipients
+      undefined, // relayAdaptDecryptERC20AmountRecipients
+      undefined, // relayAdaptDecryptNFTAmounts
+      undefined, // relayAdaptEncryptERC20Recipients
+      undefined, // relayAdaptEncryptNFTRecipients
       undefined, // crossContractCalls
       relayerFeeERC20AmountRecipient,
       sendWithPublicWallet,

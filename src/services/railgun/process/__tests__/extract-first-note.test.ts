@@ -105,7 +105,7 @@ const createGoerliTransferTransactions = async (
   );
 };
 
-const createGoerliRelayAdaptUnshieldTransactions = async (
+const createGoerliRelayAdaptDecryptTransactions = async (
   receiverAddressData: AddressData,
   senderAddressData: AddressData,
   fee: bigint,
@@ -242,13 +242,13 @@ describe('extract-first-note', () => {
     const senderAddressData = RailgunEngine.decodeAddress(
       '0zk1qy00025qjn7vw0mvu4egcxlkjv3nkemeat92qdlh3lzl4rpzxv9f8rv7j6fe3z53ll2adx8kn0lj0ucjkz4xxyax8l9mpqjgrf9z3zjvlvqr4qxgznrpqugcjt8',
     );
-    const transactions = await createGoerliRelayAdaptUnshieldTransactions(
+    const transactions = await createGoerliRelayAdaptDecryptTransactions(
       railgunWallet.addressKeys,
       senderAddressData,
       fee,
       MOCK_TOKEN_ADDRESS,
     );
-    const transaction = await relayAdaptContract.populateUnshieldBaseToken(
+    const transaction = await relayAdaptContract.populateDecryptBaseToken(
       transactions,
       MOCK_ETH_WALLET_ADDRESS,
       RANDOM_RELAY_ADAPT,
@@ -274,13 +274,13 @@ describe('extract-first-note', () => {
     const senderAddressData = RailgunEngine.decodeAddress(
       '0zk1qy00025qjn7vw0mvu4egcxlkjv3nkemeat92qdlh3lzl4rpzxv9f8rv7j6fe3z53ll2adx8kn0lj0ucjkz4xxyax8l9mpqjgrf9z3zjvlvqr4qxgznrpqugcjt8',
     );
-    const transactions = await createGoerliRelayAdaptUnshieldTransactions(
+    const transactions = await createGoerliRelayAdaptDecryptTransactions(
       receiverAddressData,
       senderAddressData,
       fee,
       MOCK_TOKEN_ADDRESS,
     );
-    const transaction = await relayAdaptContract.populateUnshieldBaseToken(
+    const transaction = await relayAdaptContract.populateDecryptBaseToken(
       transactions,
       MOCK_ETH_WALLET_ADDRESS,
       RANDOM_RELAY_ADAPT,

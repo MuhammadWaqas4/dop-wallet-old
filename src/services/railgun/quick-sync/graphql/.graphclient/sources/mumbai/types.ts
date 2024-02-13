@@ -271,7 +271,7 @@ export type CommitmentPreimage_orderBy =
   | 'value';
 
 export type CommitmentType =
-  | 'ShieldCommitment'
+  | 'EncryptCommitment'
   | 'TransactCommitment'
   | 'LegacyGeneratedCommitment'
   | 'LegacyEncryptedCommitment';
@@ -792,12 +792,12 @@ export type Query = {
   legacyGeneratedCommitments: Array<LegacyGeneratedCommitment>;
   legacyEncryptedCommitment?: Maybe<LegacyEncryptedCommitment>;
   legacyEncryptedCommitments: Array<LegacyEncryptedCommitment>;
-  shieldCommitment?: Maybe<ShieldCommitment>;
-  shieldCommitments: Array<ShieldCommitment>;
+  encryptCommitment?: Maybe<EncryptCommitment>;
+  encryptCommitments: Array<EncryptCommitment>;
   transactCommitment?: Maybe<TransactCommitment>;
   transactCommitments: Array<TransactCommitment>;
-  unshield?: Maybe<Unshield>;
-  unshields: Array<Unshield>;
+  decrypt?: Maybe<Decrypt>;
+  decrypts: Array<Decrypt>;
   nullifier?: Maybe<Nullifier>;
   nullifiers: Array<Nullifier>;
   commitment?: Maybe<Commitment>;
@@ -933,19 +933,19 @@ export type QuerylegacyEncryptedCommitmentsArgs = {
 };
 
 
-export type QueryshieldCommitmentArgs = {
+export type QueryencryptCommitmentArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type QueryshieldCommitmentsArgs = {
+export type QueryencryptCommitmentsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<ShieldCommitment_orderBy>;
+  orderBy?: InputMaybe<EncryptCommitment_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<ShieldCommitment_filter>;
+  where?: InputMaybe<EncryptCommitment_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -969,19 +969,19 @@ export type QuerytransactCommitmentsArgs = {
 };
 
 
-export type QueryunshieldArgs = {
+export type QuerydecryptArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type QueryunshieldsArgs = {
+export type QuerydecryptsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Unshield_orderBy>;
+  orderBy?: InputMaybe<Decrypt_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Unshield_filter>;
+  where?: InputMaybe<Decrypt_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -1027,7 +1027,7 @@ export type Query_metaArgs = {
   block?: InputMaybe<Block_height>;
 };
 
-export type ShieldCommitment = Commitment & {
+export type EncryptCommitment = Commitment & {
   id: Scalars['Bytes'];
   blockNumber: Scalars['BigInt'];
   blockTimestamp: Scalars['BigInt'];
@@ -1039,11 +1039,11 @@ export type ShieldCommitment = Commitment & {
   hash: Scalars['BigInt'];
   preimage: CommitmentPreimage;
   encryptedBundle: Array<Scalars['Bytes']>;
-  shieldKey: Scalars['Bytes'];
+  encryptKey: Scalars['Bytes'];
   fee?: Maybe<Scalars['BigInt']>;
 };
 
-export type ShieldCommitment_filter = {
+export type EncryptCommitment_filter = {
   id?: InputMaybe<Scalars['Bytes']>;
   id_not?: InputMaybe<Scalars['Bytes']>;
   id_gt?: InputMaybe<Scalars['Bytes']>;
@@ -1143,16 +1143,16 @@ export type ShieldCommitment_filter = {
   encryptedBundle_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
   encryptedBundle_not_contains?: InputMaybe<Array<Scalars['Bytes']>>;
   encryptedBundle_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
-  shieldKey?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_not?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_gt?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_lt?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_gte?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_lte?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  shieldKey_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  shieldKey_contains?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_not_contains?: InputMaybe<Scalars['Bytes']>;
+  encryptKey?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_not?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_gt?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_lt?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_gte?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_lte?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  encryptKey_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  encryptKey_contains?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_not_contains?: InputMaybe<Scalars['Bytes']>;
   fee?: InputMaybe<Scalars['BigInt']>;
   fee_not?: InputMaybe<Scalars['BigInt']>;
   fee_gt?: InputMaybe<Scalars['BigInt']>;
@@ -1163,11 +1163,11 @@ export type ShieldCommitment_filter = {
   fee_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<ShieldCommitment_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<ShieldCommitment_filter>>>;
+  and?: InputMaybe<Array<InputMaybe<EncryptCommitment_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<EncryptCommitment_filter>>>;
 };
 
-export type ShieldCommitment_orderBy =
+export type EncryptCommitment_orderBy =
   | 'id'
   | 'blockNumber'
   | 'blockTimestamp'
@@ -1182,7 +1182,7 @@ export type ShieldCommitment_orderBy =
   | 'preimage__npk'
   | 'preimage__value'
   | 'encryptedBundle'
-  | 'shieldKey'
+  | 'encryptKey'
   | 'fee';
 
 export type Subscription = {
@@ -1200,12 +1200,12 @@ export type Subscription = {
   legacyGeneratedCommitments: Array<LegacyGeneratedCommitment>;
   legacyEncryptedCommitment?: Maybe<LegacyEncryptedCommitment>;
   legacyEncryptedCommitments: Array<LegacyEncryptedCommitment>;
-  shieldCommitment?: Maybe<ShieldCommitment>;
-  shieldCommitments: Array<ShieldCommitment>;
+  encryptCommitment?: Maybe<EncryptCommitment>;
+  encryptCommitments: Array<EncryptCommitment>;
   transactCommitment?: Maybe<TransactCommitment>;
   transactCommitments: Array<TransactCommitment>;
-  unshield?: Maybe<Unshield>;
-  unshields: Array<Unshield>;
+  decrypt?: Maybe<Decrypt>;
+  decrypts: Array<Decrypt>;
   nullifier?: Maybe<Nullifier>;
   nullifiers: Array<Nullifier>;
   commitment?: Maybe<Commitment>;
@@ -1341,19 +1341,19 @@ export type SubscriptionlegacyEncryptedCommitmentsArgs = {
 };
 
 
-export type SubscriptionshieldCommitmentArgs = {
+export type SubscriptionencryptCommitmentArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type SubscriptionshieldCommitmentsArgs = {
+export type SubscriptionencryptCommitmentsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<ShieldCommitment_orderBy>;
+  orderBy?: InputMaybe<EncryptCommitment_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<ShieldCommitment_filter>;
+  where?: InputMaybe<EncryptCommitment_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -1377,19 +1377,19 @@ export type SubscriptiontransactCommitmentsArgs = {
 };
 
 
-export type SubscriptionunshieldArgs = {
+export type SubscriptiondecryptArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
 
-export type SubscriptionunshieldsArgs = {
+export type SubscriptiondecryptsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<Unshield_orderBy>;
+  orderBy?: InputMaybe<Decrypt_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<Unshield_filter>;
+  where?: InputMaybe<Decrypt_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -1624,7 +1624,7 @@ export type TransactCommitment_orderBy =
   | 'ciphertext__annotationData'
   | 'ciphertext__memo';
 
-export type Unshield = {
+export type Decrypt = {
   id: Scalars['Bytes'];
   blockNumber: Scalars['BigInt'];
   blockTimestamp: Scalars['BigInt'];
@@ -1636,7 +1636,7 @@ export type Unshield = {
   eventLogIndex: Scalars['BigInt'];
 };
 
-export type Unshield_filter = {
+export type Decrypt_filter = {
   id?: InputMaybe<Scalars['Bytes']>;
   id_not?: InputMaybe<Scalars['Bytes']>;
   id_gt?: InputMaybe<Scalars['Bytes']>;
@@ -1730,11 +1730,11 @@ export type Unshield_filter = {
   eventLogIndex_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<Unshield_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<Unshield_filter>>>;
+  and?: InputMaybe<Array<InputMaybe<Decrypt_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<Decrypt_filter>>>;
 };
 
-export type Unshield_orderBy =
+export type Decrypt_orderBy =
   | 'id'
   | 'blockNumber'
   | 'blockTimestamp'
@@ -1810,17 +1810,17 @@ export type _SubgraphErrorPolicy_ =
   /** null **/
   legacyEncryptedCommitments: InContextSdkMethod<Query['legacyEncryptedCommitments'], QuerylegacyEncryptedCommitmentsArgs, MeshContext>,
   /** null **/
-  shieldCommitment: InContextSdkMethod<Query['shieldCommitment'], QueryshieldCommitmentArgs, MeshContext>,
+  encryptCommitment: InContextSdkMethod<Query['encryptCommitment'], QueryencryptCommitmentArgs, MeshContext>,
   /** null **/
-  shieldCommitments: InContextSdkMethod<Query['shieldCommitments'], QueryshieldCommitmentsArgs, MeshContext>,
+  encryptCommitments: InContextSdkMethod<Query['encryptCommitments'], QueryencryptCommitmentsArgs, MeshContext>,
   /** null **/
   transactCommitment: InContextSdkMethod<Query['transactCommitment'], QuerytransactCommitmentArgs, MeshContext>,
   /** null **/
   transactCommitments: InContextSdkMethod<Query['transactCommitments'], QuerytransactCommitmentsArgs, MeshContext>,
   /** null **/
-  unshield: InContextSdkMethod<Query['unshield'], QueryunshieldArgs, MeshContext>,
+  decrypt: InContextSdkMethod<Query['decrypt'], QuerydecryptArgs, MeshContext>,
   /** null **/
-  unshields: InContextSdkMethod<Query['unshields'], QueryunshieldsArgs, MeshContext>,
+  decrypts: InContextSdkMethod<Query['decrypts'], QuerydecryptsArgs, MeshContext>,
   /** null **/
   nullifier: InContextSdkMethod<Query['nullifier'], QuerynullifierArgs, MeshContext>,
   /** null **/
@@ -1867,17 +1867,17 @@ export type _SubgraphErrorPolicy_ =
   /** null **/
   legacyEncryptedCommitments: InContextSdkMethod<Subscription['legacyEncryptedCommitments'], SubscriptionlegacyEncryptedCommitmentsArgs, MeshContext>,
   /** null **/
-  shieldCommitment: InContextSdkMethod<Subscription['shieldCommitment'], SubscriptionshieldCommitmentArgs, MeshContext>,
+  encryptCommitment: InContextSdkMethod<Subscription['encryptCommitment'], SubscriptionencryptCommitmentArgs, MeshContext>,
   /** null **/
-  shieldCommitments: InContextSdkMethod<Subscription['shieldCommitments'], SubscriptionshieldCommitmentsArgs, MeshContext>,
+  encryptCommitments: InContextSdkMethod<Subscription['encryptCommitments'], SubscriptionencryptCommitmentsArgs, MeshContext>,
   /** null **/
   transactCommitment: InContextSdkMethod<Subscription['transactCommitment'], SubscriptiontransactCommitmentArgs, MeshContext>,
   /** null **/
   transactCommitments: InContextSdkMethod<Subscription['transactCommitments'], SubscriptiontransactCommitmentsArgs, MeshContext>,
   /** null **/
-  unshield: InContextSdkMethod<Subscription['unshield'], SubscriptionunshieldArgs, MeshContext>,
+  decrypt: InContextSdkMethod<Subscription['decrypt'], SubscriptiondecryptArgs, MeshContext>,
   /** null **/
-  unshields: InContextSdkMethod<Subscription['unshields'], SubscriptionunshieldsArgs, MeshContext>,
+  decrypts: InContextSdkMethod<Subscription['decrypts'], SubscriptiondecryptsArgs, MeshContext>,
   /** null **/
   nullifier: InContextSdkMethod<Subscription['nullifier'], SubscriptionnullifierArgs, MeshContext>,
   /** null **/

@@ -12,15 +12,15 @@ import {
 import {
   generateDummyProofTransactions,
   generateTransact,
-  generateUnshieldBaseToken,
+  generateDecryptBaseToken,
 } from './tx-generator';
 import { populateProvedTransaction } from './proof-cache';
 import { randomHex, TransactionStruct } from 'dop-engineengine';
 import { gasEstimateResponseDummyProofIterativeRelayerFee } from './tx-gas-relayer-fee-estimator';
-import { createRelayAdaptUnshieldERC20AmountRecipients } from './tx-cross-contract-calls';
+import { createRelayAdaptDecryptERC20AmountRecipients } from './tx-cross-contract-calls';
 import { reportAndSanitizeError } from '../../utils/error';
 
-export const populateProvedUnshield = async (
+export const populateProvedDecrypt = async (
   networkName: NetworkName,
   railgunWalletID: string,
   erc20AmountRecipients: RailgunERC20AmountRecipient[],
@@ -33,16 +33,16 @@ export const populateProvedUnshield = async (
   try {
     const { transaction, nullifiers } = await populateProvedTransaction(
       networkName,
-      ProofType.Unshield,
+      ProofType.Decrypt,
       railgunWalletID,
       false, // showSenderAddressToRecipient
       undefined, // memoText
       erc20AmountRecipients,
       nftAmountRecipients,
-      undefined, // relayAdaptUnshieldERC20AmountRecipients
-      undefined, // relayAdaptUnshieldNFTAmounts
-      undefined, // relayAdaptShieldERC20Recipients
-      undefined, // relayAdaptShieldNFTRecipients
+      undefined, // relayAdaptDecryptERC20AmountRecipients
+      undefined, // relayAdaptDecryptNFTAmounts
+      undefined, // relayAdaptEncryptERC20Recipients
+      undefined, // relayAdaptEncryptNFTRecipients
       undefined, // crossContractCalls
       relayerFeeERC20AmountRecipient,
       sendWithPublicWallet,
@@ -54,11 +54,11 @@ export const populateProvedUnshield = async (
       transaction,
     };
   } catch (err) {
-    throw reportAndSanitizeError(populateProvedUnshield.name, err);
+    throw reportAndSanitizeError(populateProvedDecrypt.name, err);
   }
 };
 
-export const populateProvedUnshieldBaseToken = async (
+export const populateProvedDecryptBaseToken = async (
   networkName: NetworkName,
   publicWalletAddress: string,
   railgunWalletID: string,
@@ -75,7 +75,7 @@ export const populateProvedUnshieldBaseToken = async (
         recipientAddress: publicWalletAddress,
       },
     ];
-    const relayAdaptUnshieldERC20Amounts: RailgunERC20Amount[] = [
+    const relayAdaptDecryptERC20Amounts: RailgunERC20Amount[] = [
       wrappedERC20Amount,
     ];
 
@@ -84,16 +84,16 @@ export const populateProvedUnshieldBaseToken = async (
 
     const { transaction, nullifiers } = await populateProvedTransaction(
       networkName,
-      ProofType.UnshieldBaseToken,
+      ProofType.DecryptBaseToken,
       railgunWalletID,
       false, // showSenderAddressToRecipient
       undefined, // memoText
       erc20AmountRecipients,
       nftAmountRecipients,
-      relayAdaptUnshieldERC20Amounts,
-      undefined, // relayAdaptUnshieldNFTAmounts
-      undefined, // relayAdaptShieldERC20Recipients
-      undefined, // relayAdaptShieldNFTRecipients
+      relayAdaptDecryptERC20Amounts,
+      undefined, // relayAdaptDecryptNFTAmounts
+      undefined, // relayAdaptEncryptERC20Recipients
+      undefined, // relayAdaptEncryptNFTRecipients
       undefined, // crossContractCalls
       relayerFeeERC20AmountRecipient,
       sendWithPublicWallet,
@@ -105,11 +105,11 @@ export const populateProvedUnshieldBaseToken = async (
       transaction,
     };
   } catch (err) {
-    throw reportAndSanitizeError(populateProvedUnshieldBaseToken.name, err);
+    throw reportAndSanitizeError(populateProvedDecryptBaseToken.name, err);
   }
 };
 
-export const gasEstimateForUnprovenUnshield = async (
+export const gasEstimateForUnprovenDecrypt = async (
   networkName: NetworkName,
   railgunWalletID: string,
   encryptionKey: string,
@@ -125,7 +125,7 @@ export const gasEstimateForUnprovenUnshield = async (
     const response = await gasEstimateResponseDummyProofIterativeRelayerFee(
       (relayerFeeERC20Amount: Optional<RailgunERC20Amount>) =>
         generateDummyProofTransactions(
-          ProofType.Unshield,
+          ProofType.Decrypt,
           networkName,
           railgunWalletID,
           encryptionKey,
@@ -153,11 +153,11 @@ export const gasEstimateForUnprovenUnshield = async (
     );
     return response;
   } catch (err) {
-    throw reportAndSanitizeError(gasEstimateForUnprovenUnshield.name, err);
+    throw reportAndSanitizeError(gasEstimateForUnprovenDecrypt.name, err);
   }
 };
 
-export const gasEstimateForUnprovenUnshieldBaseToken = async (
+export const gasEstimateForUnprovenDecryptBaseToken = async (
   networkName: NetworkName,
   publicWalletAddress: string,
   railgunWalletID: string,
@@ -168,8 +168,8 @@ export const gasEstimateForUnprovenUnshieldBaseToken = async (
   sendWithPublicWallet: boolean,
 ): Promise<RailgunTransactionGasEstimateResponse> => {
   try {
-    const relayAdaptUnshieldERC20AmountRecipients: RailgunERC20AmountRecipient[] =
-      createRelayAdaptUnshieldERC20AmountRecipients(networkName, [
+    const relayAdaptDecryptERC20AmountRecipients: RailgunERC20AmountRecipient[] =
+      createRelayAdaptDecryptERC20AmountRecipients(networkName, [
         wrappedERC20Amount,
       ]);
 
@@ -181,13 +181,13 @@ export const gasEstimateForUnprovenUnshieldBaseToken = async (
     const response = await gasEstimateResponseDummyProofIterativeRelayerFee(
       (relayerFeeERC20Amount: Optional<RailgunERC20Amount>) =>
         generateDummyProofTransactions(
-          ProofType.UnshieldBaseToken,
+          ProofType.DecryptBaseToken,
           networkName,
           railgunWalletID,
           encryptionKey,
           false, // showSenderAddressToRecipient
           undefined, // memoText
-          relayAdaptUnshieldERC20AmountRecipients,
+          relayAdaptDecryptERC20AmountRecipients,
           nftAmountRecipients,
           relayerFeeERC20Amount,
           sendWithPublicWallet,
@@ -195,7 +195,7 @@ export const gasEstimateForUnprovenUnshieldBaseToken = async (
         ),
       (txs: TransactionStruct[]) => {
         const relayAdaptParamsRandom = randomHex(31);
-        return generateUnshieldBaseToken(
+        return generateDecryptBaseToken(
           txs,
           networkName,
           publicWalletAddress,
@@ -205,7 +205,7 @@ export const gasEstimateForUnprovenUnshieldBaseToken = async (
       },
       networkName,
       railgunWalletID,
-      relayAdaptUnshieldERC20AmountRecipients,
+      relayAdaptDecryptERC20AmountRecipients,
       originalGasDetails,
       feeTokenDetails,
       sendWithPublicWallet,
@@ -214,7 +214,7 @@ export const gasEstimateForUnprovenUnshieldBaseToken = async (
     return response;
   } catch (err) {
     throw reportAndSanitizeError(
-      gasEstimateForUnprovenUnshieldBaseToken.name,
+      gasEstimateForUnprovenDecryptBaseToken.name,
       err,
     );
   }

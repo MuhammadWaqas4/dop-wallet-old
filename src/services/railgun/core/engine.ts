@@ -116,7 +116,7 @@ export const setOnMerkletreeScanCallback = (
  * @param shouldDebug - Whether to forward Engine debug logs to Logger.
  * @param artifactStore - Persistent store for downloading large artifact files. See Wallet SDK Developer Guide for platform implementations.
  * @param useNativeArtifacts - Whether to download native C++ or web-assembly artifacts. TRUE for mobile. FALSE for nodejs and browser.
- * @param skipMerkletreeScans - Whether to skip merkletree syncs and private balance scans. Only set to TRUE in shield-only applications that don't load private wallets or balances.
+ * @param skipMerkletreeScans - Whether to skip merkletree syncs and private balance scans. Only set to TRUE in encrypt-only applications that don't load private wallets or balances.
  * @returns
  */
 export const startRailgunEngine = (

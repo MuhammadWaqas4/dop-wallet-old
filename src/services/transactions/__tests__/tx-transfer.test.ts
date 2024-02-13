@@ -55,8 +55,8 @@ let gasEstimateStub: SinonStub;
 let railProveStub: SinonStub;
 let railDummyProveStub: SinonStub;
 let railTransactStub: SinonStub;
-let relayAdaptPopulateUnshieldBaseToken: SinonStub;
-let setUnshieldSpy: SinonSpy;
+let relayAdaptPopulateDecryptBaseToken: SinonStub;
+let setDecryptSpy: SinonSpy;
 let erc20NoteSpy: SinonSpy;
 let nftNoteSpy: SinonSpy;
 
@@ -184,14 +184,14 @@ describe('tx-transfer', () => {
       RailgunSmartWalletContract.prototype,
       'transact',
     ).resolves({ data: '0x0123' } as ContractTransaction);
-    relayAdaptPopulateUnshieldBaseToken = Sinon.stub(
+    relayAdaptPopulateDecryptBaseToken = Sinon.stub(
       RelayAdaptContract.prototype,
-      'populateUnshieldBaseToken',
+      'populateDecryptBaseToken',
     ).resolves({ data: '0x0123' } as ContractTransaction);
   });
   afterEach(() => {
     gasEstimateStub?.restore();
-    setUnshieldSpy?.restore();
+    setDecryptSpy?.restore();
     erc20NoteSpy?.restore();
     nftNoteSpy?.restore();
   });
@@ -199,7 +199,7 @@ describe('tx-transfer', () => {
     railProveStub.restore();
     railDummyProveStub.restore();
     railTransactStub.restore();
-    relayAdaptPopulateUnshieldBaseToken.restore();
+    relayAdaptPopulateDecryptBaseToken.restore();
     await closeTestEngine();
   });
 

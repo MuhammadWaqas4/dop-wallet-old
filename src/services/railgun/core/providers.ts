@@ -207,13 +207,13 @@ export const loadProvider = async (
     const railgunSmartWalletContract =
       getRailgunSmartWalletContractForNetwork(networkName);
 
-    const { shield, unshield, nft } = await railgunSmartWalletContract.fees();
+    const { encrypt, decrypt, nft } = await railgunSmartWalletContract.fees();
 
-    // Note: Shield and Unshield fees are in basis points.
+    // Note: Encrypt and Decrypt fees are in basis points.
     // NFT fee is in wei (though currently 0).
     const feesSerialized = {
-      shield: shield.toString(),
-      unshield: unshield.toString(),
+      encrypt: encrypt.toString(),
+      decrypt: decrypt.toString(),
       nft: nft.toString(),
     };
 

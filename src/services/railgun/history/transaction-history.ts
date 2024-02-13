@@ -7,7 +7,7 @@ import {
   TokenType,
   formatToByteLength,
   ByteLength,
-  TransactionHistoryUnshieldTokenAmount,
+  TransactionHistoryDecryptTokenAmount,
 } from 'dop-engineengine';
 import {
   TransactionHistoryItem,
@@ -17,8 +17,8 @@ import {
   RailgunSendNFTAmount,
   RailgunNFTAmount,
   RailgunReceiveNFTAmount,
-  RailgunUnshieldERC20Amount,
-  RailgunUnshieldNFTAmount,
+  RailgunDecryptERC20Amount,
+  RailgunDecryptNFTAmount,
   TransactionHistoryItemCategory,
 } from 'dop-sharedmodels';
 import { walletForID } from '../core/engine';
@@ -34,7 +34,7 @@ const transactionHistoryReceiveTokenAmountToRailgunERC20Amount = (
     ),
     memoText: transactionHistoryReceiveTokenAmount.memoText,
     senderAddress: transactionHistoryReceiveTokenAmount.senderAddress,
-    shieldFee: transactionHistoryReceiveTokenAmount.shieldFee,
+    encryptFee: transactionHistoryReceiveTokenAmount.encryptFee,
   };
 };
 
@@ -47,7 +47,7 @@ const transactionHistoryReceiveNFTToRailgunNFTAmount = (
     ),
     memoText: transactionHistoryReceiveTokenAmount.memoText,
     senderAddress: transactionHistoryReceiveTokenAmount.senderAddress,
-    shieldFee: transactionHistoryReceiveTokenAmount.shieldFee,
+    encryptFee: transactionHistoryReceiveTokenAmount.encryptFee,
   };
 };
 
@@ -66,14 +66,14 @@ const transactionHistoryTransferTokenAmountToRailgunERC20Amount = (
   };
 };
 
-const transactionHistoryUnshieldTokenAmountToRailgunERC20Amount = (
-  transactionHistoryUnshieldTokenAmount: TransactionHistoryUnshieldTokenAmount,
-): RailgunUnshieldERC20Amount => {
+const transactionHistoryDecryptTokenAmountToRailgunERC20Amount = (
+  transactionHistoryDecryptTokenAmount: TransactionHistoryDecryptTokenAmount,
+): RailgunDecryptERC20Amount => {
   return {
     ...transactionHistoryTransferTokenAmountToRailgunERC20Amount(
-      transactionHistoryUnshieldTokenAmount,
+      transactionHistoryDecryptTokenAmount,
     ),
-    unshieldFee: transactionHistoryUnshieldTokenAmount.unshieldFee,
+    decryptFee: transactionHistoryDecryptTokenAmount.decryptFee,
   };
 };
 
@@ -89,12 +89,12 @@ const transactionHistoryTransferNFTToRailgunNFTAmount = (
   };
 };
 
-const transactionHistoryUnshieldNFTToRailgunNFTAmount = (
-  transactionHistoryNFT: TransactionHistoryUnshieldTokenAmount,
-): RailgunUnshieldNFTAmount => {
+const transactionHistoryDecryptNFTToRailgunNFTAmount = (
+  transactionHistoryNFT: TransactionHistoryDecryptTokenAmount,
+): RailgunDecryptNFTAmount => {
   return {
     ...transactionHistoryTransferNFTToRailgunNFTAmount(transactionHistoryNFT),
-    unshieldFee: transactionHistoryNFT.unshieldFee,
+    decryptFee: transactionHistoryNFT.decryptFee,
   };
 };
 
@@ -136,10 +136,10 @@ const filterNFT = (tokenAmount: TransactionHistoryTokenAmount) => {
   }
 };
 
-const receiveERC20AmountsHaveShieldFee = (
+const receiveERC20AmountsHaveEncryptFee = (
   receiveERC20Amounts: RailgunReceiveERC20Amount[],
 ): boolean => {
-  return receiveERC20Amounts.find(amount => amount.shieldFee) != null;
+  return receiveERC20Amounts.find(amount => amount.encryptFee) != null;
 };
 
 export const categoryForTransactionHistoryItem = (
@@ -147,37 +147,37 @@ export const categoryForTransactionHistoryItem = (
 ): TransactionHistoryItemCategory => {
   const hasTransferNFTs = historyItem.transferNFTAmounts.length > 0;
   const hasReceiveNFTs = historyItem.receiveNFTAmounts.length > 0;
-  const hasUnshieldNFTs = historyItem.unshieldNFTAmounts.length > 0;
-  if (hasTransferNFTs || hasReceiveNFTs || hasUnshieldNFTs) {
+  const hasDecryptNFTs = historyItem.decryptNFTAmounts.length > 0;
+  if (hasTransferNFTs || hasReceiveNFTs || hasDecryptNFTs) {
     // Some kind of NFT Transfer. Unhandled case.
     return TransactionHistoryItemCategory.Unknown;
   }
 
   const hasTransferERC20s = historyItem.transferERC20Amounts.length > 0;
   const hasReceiveERC20s = historyItem.receiveERC20Amounts.length > 0;
-  const hasUnshieldERC20s = historyItem.unshieldERC20Amounts.length > 0;
+  const hasDecryptERC20s = historyItem.decryptERC20Amounts.length > 0;
 
-  if (hasTransferERC20s && !hasReceiveERC20s && !hasUnshieldERC20s) {
+  if (hasTransferERC20s && !hasReceiveERC20s && !hasDecryptERC20s) {
     // Only transfer erc20s.
     return TransactionHistoryItemCategory.TransferSendERC20s;
   }
 
-  if (!hasTransferERC20s && hasReceiveERC20s && !hasUnshieldERC20s) {
+  if (!hasTransferERC20s && hasReceiveERC20s && !hasDecryptERC20s) {
     // Only receive erc20s.
-    const hasShieldFee = receiveERC20AmountsHaveShieldFee(
+    const hasEncryptFee = receiveERC20AmountsHaveEncryptFee(
       historyItem.receiveERC20Amounts,
     );
-    if (hasShieldFee) {
-      // Note: Shield fees were added to contract events in Mar 2023.
-      // Prior shields will show as TransferReceiveERC20s without fees.
-      return TransactionHistoryItemCategory.ShieldERC20s;
+    if (hasEncryptFee) {
+      // Note: Encrypt fees were added to contract events in Mar 2023.
+      // Prior encrypts will show as TransferReceiveERC20s without fees.
+      return TransactionHistoryItemCategory.EncryptERC20s;
     }
     return TransactionHistoryItemCategory.TransferReceiveERC20s;
   }
 
-  if (!hasTransferERC20s && !hasReceiveERC20s && hasUnshieldERC20s) {
-    // Only unshield erc20s.
-    return TransactionHistoryItemCategory.UnshieldERC20s;
+  if (!hasTransferERC20s && !hasReceiveERC20s && hasDecryptERC20s) {
+    // Only decrypt erc20s.
+    return TransactionHistoryItemCategory.DecryptERC20s;
   }
 
   return TransactionHistoryItemCategory.Unknown;
@@ -205,18 +205,18 @@ const serializeTransactionHistory = (
       receiveERC20Amounts: historyEntry.receiveTokenAmounts
         .filter(filterERC20)
         .map(transactionHistoryReceiveTokenAmountToRailgunERC20Amount),
-      unshieldERC20Amounts: historyEntry.unshieldTokenAmounts
+      decryptERC20Amounts: historyEntry.decryptTokenAmounts
         .filter(filterERC20)
-        .map(transactionHistoryUnshieldTokenAmountToRailgunERC20Amount),
+        .map(transactionHistoryDecryptTokenAmountToRailgunERC20Amount),
       receiveNFTAmounts: historyEntry.receiveTokenAmounts
         .filter(filterNFT)
         .map(transactionHistoryReceiveNFTToRailgunNFTAmount),
       transferNFTAmounts: historyEntry.transferTokenAmounts
         .filter(filterNFT)
         .map(transactionHistoryTransferNFTToRailgunNFTAmount),
-      unshieldNFTAmounts: historyEntry.unshieldTokenAmounts
+      decryptNFTAmounts: historyEntry.decryptTokenAmounts
         .filter(filterNFT)
-        .map(transactionHistoryUnshieldNFTToRailgunNFTAmount),
+        .map(transactionHistoryDecryptNFTToRailgunNFTAmount),
       version: historyEntry.version,
       category: TransactionHistoryItemCategory.Unknown,
     }));

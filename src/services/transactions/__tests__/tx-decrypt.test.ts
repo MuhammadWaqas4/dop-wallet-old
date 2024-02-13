@@ -42,15 +42,15 @@ import {
   MOCK_TRANSACTION_GAS_DETAILS_SERIALIZED_TYPE_2,
 } from '../../../tests/mocks.test';
 import {
-  populateProvedUnshield,
-  gasEstimateForUnprovenUnshield,
-  populateProvedUnshieldBaseToken,
-  gasEstimateForUnprovenUnshieldBaseToken,
-} from '../tx-unshield';
+  populateProvedDecrypt,
+  gasEstimateForUnprovenDecrypt,
+  populateProvedDecryptBaseToken,
+  gasEstimateForUnprovenDecryptBaseToken,
+} from '../tx-decrypt';
 import {
-  generateUnshieldBaseTokenProof,
-  generateUnshieldProof,
-} from '../tx-proof-unshield';
+  generateDecryptBaseTokenProof,
+  generateDecryptProof,
+} from '../tx-proof-decrypt';
 import { createRailgunWallet } from '../../railgun/wallets/wallets';
 import { fullWalletForID } from '../../railgun/core/engine';
 import { setCachedProvedTransaction } from '../proof-cache';
@@ -60,8 +60,8 @@ let gasEstimateStub: SinonStub;
 let railProveStub: SinonStub;
 let railDummyProveStub: SinonStub;
 let railTransactStub: SinonStub;
-let relayAdaptPopulateUnshieldBaseToken: SinonStub;
-let addUnshieldDataSpy: SinonSpy;
+let relayAdaptPopulateDecryptBaseToken: SinonStub;
+let addDecryptDataSpy: SinonSpy;
 let erc20NoteSpy: SinonSpy;
 
 let railgunWallet: RailgunWallet;
@@ -141,11 +141,11 @@ const stubGasEstimateFailure = () => {
   ).rejects(new Error('test rejection - gas estimate'));
 };
 
-const spyOnSetUnshield = () => {
-  addUnshieldDataSpy = Sinon.spy(TransactionBatch.prototype, 'addUnshieldData');
+const spyOnSetDecrypt = () => {
+  addDecryptDataSpy = Sinon.spy(TransactionBatch.prototype, 'addDecryptData');
 };
 
-describe('tx-unshield', () => {
+describe('tx-decrypt', () => {
   before(async function run() {
     this.timeout(5000);
     initTestEngine();
@@ -197,30 +197,30 @@ describe('tx-unshield', () => {
       RailgunSmartWalletContract.prototype,
       'transact',
     ).resolves({ data: '0x0123' } as ContractTransaction);
-    relayAdaptPopulateUnshieldBaseToken = Sinon.stub(
+    relayAdaptPopulateDecryptBaseToken = Sinon.stub(
       RelayAdaptContract.prototype,
-      'populateUnshieldBaseToken',
+      'populateDecryptBaseToken',
     ).resolves({ data: '0x0123' } as ContractTransaction);
   });
   afterEach(() => {
     gasEstimateStub?.restore();
-    addUnshieldDataSpy?.restore();
+    addDecryptDataSpy?.restore();
     erc20NoteSpy?.restore();
   });
   after(async () => {
     railProveStub.restore();
     railDummyProveStub.restore();
     railTransactStub.restore();
-    relayAdaptPopulateUnshieldBaseToken.restore();
+    relayAdaptPopulateDecryptBaseToken.restore();
     await closeTestEngine();
   });
 
   // UNSHIELD - GAS ESTIMATE
 
-  it('Should get gas estimates for valid Unshield', async () => {
+  it('Should get gas estimates for valid Decrypt', async () => {
     stubGasEstimateSuccess();
-    spyOnSetUnshield();
-    const rsp = await gasEstimateForUnprovenUnshield(
+    spyOnSetDecrypt();
+    const rsp = await gasEstimateForUnprovenDecrypt(
       NetworkName.Polygon,
       railgunWallet.id,
       MOCK_DB_ENCRYPTION_KEY,
@@ -234,8 +234,8 @@ describe('tx-unshield', () => {
     expect(rsp.relayerFeeCommitment?.commitmentCiphertext).to.deep.equal(
       MOCK_FORMATTED_RELAYER_FEE_COMMITMENT_CIPHERTEXT,
     );
-    expect(addUnshieldDataSpy.called).to.be.true;
-    expect(addUnshieldDataSpy.args).to.deep.equal([
+    expect(addDecryptDataSpy.called).to.be.true;
+    expect(addDecryptDataSpy.args).to.deep.equal([
       [
         {
           toAddress: MOCK_ETH_WALLET_ADDRESS,
@@ -273,10 +273,10 @@ describe('tx-unshield', () => {
     expect(rsp.gasEstimate).to.equal(7500n + 200n);
   }).timeout(10000);
 
-  it('Should error on gas estimates for invalid Unshield', async () => {
+  it('Should error on gas estimates for invalid Decrypt', async () => {
     stubGasEstimateSuccess();
     await expect(
-      gasEstimateForUnprovenUnshield(
+      gasEstimateForUnprovenDecrypt(
         NetworkName.Polygon,
         railgunWallet.id,
         MOCK_DB_ENCRYPTION_KEY,
@@ -289,10 +289,10 @@ describe('tx-unshield', () => {
     ).rejectedWith('Invalid wallet address.');
   });
 
-  it('Should error on unshield gas estimate for ethers rejections', async () => {
+  it('Should error on decrypt gas estimate for ethers rejections', async () => {
     stubGasEstimateFailure();
     await expect(
-      gasEstimateForUnprovenUnshield(
+      gasEstimateForUnprovenDecrypt(
         NetworkName.Polygon,
         railgunWallet.id,
         MOCK_DB_ENCRYPTION_KEY,
@@ -307,10 +307,10 @@ describe('tx-unshield', () => {
 
   // UNSHIELD BASE TOKEN - GAS ESTIMATE
 
-  it('Should get gas estimates for valid Unshield base token', async () => {
+  it('Should get gas estimates for valid Decrypt base token', async () => {
     stubGasEstimateSuccess();
-    spyOnSetUnshield();
-    const rsp = await gasEstimateForUnprovenUnshieldBaseToken(
+    spyOnSetDecrypt();
+    const rsp = await gasEstimateForUnprovenDecryptBaseToken(
       NetworkName.Polygon,
       MOCK_ETH_WALLET_ADDRESS,
       railgunWallet.id,
@@ -324,8 +324,8 @@ describe('tx-unshield', () => {
     expect(rsp.relayerFeeCommitment?.commitmentCiphertext).to.deep.equal(
       MOCK_FORMATTED_RELAYER_FEE_COMMITMENT_CIPHERTEXT,
     );
-    expect(addUnshieldDataSpy.called).to.be.true;
-    expect(addUnshieldDataSpy.args).to.deep.equal([
+    expect(addDecryptDataSpy.called).to.be.true;
+    expect(addDecryptDataSpy.args).to.deep.equal([
       [
         {
           toAddress: polygonRelayAdaptContract,
@@ -347,10 +347,10 @@ describe('tx-unshield', () => {
     expect(rsp.gasEstimate).to.equal(7500n + 200n);
   }).timeout(10000);
 
-  it('Should get gas estimates for valid Unshield base token: public wallet', async () => {
+  it('Should get gas estimates for valid Decrypt base token: public wallet', async () => {
     stubGasEstimateSuccess();
-    spyOnSetUnshield();
-    const rsp = await gasEstimateForUnprovenUnshieldBaseToken(
+    spyOnSetDecrypt();
+    const rsp = await gasEstimateForUnprovenDecryptBaseToken(
       NetworkName.Polygon,
       MOCK_ETH_WALLET_ADDRESS,
       railgunWallet.id,
@@ -361,8 +361,8 @@ describe('tx-unshield', () => {
       true, // sendWithPublicWallet
     );
     expect(rsp.relayerFeeCommitment).to.be.undefined;
-    expect(addUnshieldDataSpy.called).to.be.true;
-    expect(addUnshieldDataSpy.args).to.deep.equal([
+    expect(addDecryptDataSpy.called).to.be.true;
+    expect(addDecryptDataSpy.args).to.deep.equal([
       [
         {
           toAddress: polygonRelayAdaptContract,
@@ -376,10 +376,10 @@ describe('tx-unshield', () => {
     expect(rsp.gasEstimate).to.equal(7500n + 200n);
   }).timeout(10000);
 
-  it('Should error on gas estimates for invalid Unshield base token', async () => {
+  it('Should error on gas estimates for invalid Decrypt base token', async () => {
     stubGasEstimateSuccess();
     await expect(
-      gasEstimateForUnprovenUnshieldBaseToken(
+      gasEstimateForUnprovenDecryptBaseToken(
         NetworkName.Polygon,
         MOCK_RAILGUN_WALLET_ADDRESS,
         railgunWallet.id,
@@ -392,10 +392,10 @@ describe('tx-unshield', () => {
     ).rejectedWith('Invalid wallet address.');
   });
 
-  it('Should error on unshield base token gas estimate for ethers rejections', async () => {
+  it('Should error on decrypt base token gas estimate for ethers rejections', async () => {
     stubGasEstimateFailure();
     await expect(
-      gasEstimateForUnprovenUnshieldBaseToken(
+      gasEstimateForUnprovenDecryptBaseToken(
         NetworkName.Polygon,
         MOCK_ETH_WALLET_ADDRESS,
         railgunWallet.id,
@@ -410,11 +410,11 @@ describe('tx-unshield', () => {
 
   // UNSHIELD - PROVE AND SEND
 
-  it('Should populate tx for valid Unshield', async () => {
+  it('Should populate tx for valid Decrypt', async () => {
     stubGasEstimateSuccess();
     setCachedProvedTransaction(undefined);
-    spyOnSetUnshield();
-    await generateUnshieldProof(
+    spyOnSetDecrypt();
+    await generateDecryptProof(
       NetworkName.Polygon,
       railgunWallet.id,
       MOCK_DB_ENCRYPTION_KEY,
@@ -425,8 +425,8 @@ describe('tx-unshield', () => {
       overallBatchMinGasPrice,
       () => {}, // progressCallback
     );
-    expect(addUnshieldDataSpy.called).to.be.true;
-    expect(addUnshieldDataSpy.args).to.deep.equal([
+    expect(addDecryptDataSpy.called).to.be.true;
+    expect(addDecryptDataSpy.args).to.deep.equal([
       [
         {
           toAddress: MOCK_ETH_WALLET_ADDRESS,
@@ -460,7 +460,7 @@ describe('tx-unshield', () => {
         },
       ], // run 1 - NFT token 2
     ]);
-    const populateResponse = await populateProvedUnshield(
+    const populateResponse = await populateProvedDecrypt(
       NetworkName.Polygon,
       railgunWallet.id,
       MOCK_TOKEN_AMOUNT_RECIPIENTS,
@@ -487,10 +487,10 @@ describe('tx-unshield', () => {
     expect(transaction.type).to.equal(1);
   });
 
-  it('Should error on populate tx for invalid Unshield', async () => {
+  it('Should error on populate tx for invalid Decrypt', async () => {
     stubGasEstimateSuccess();
     await expect(
-      populateProvedUnshield(
+      populateProvedDecrypt(
         NetworkName.Polygon,
         railgunWallet.id,
         MOCK_TOKEN_AMOUNT_RECIPIENTS_DIFFERENT,
@@ -505,11 +505,11 @@ describe('tx-unshield', () => {
     );
   });
 
-  it('Should error on populate unshield tx for unproved transaction', async () => {
+  it('Should error on populate decrypt tx for unproved transaction', async () => {
     stubGasEstimateSuccess();
     setCachedProvedTransaction(undefined);
     await expect(
-      populateProvedUnshield(
+      populateProvedDecrypt(
         NetworkName.Polygon,
         railgunWallet.id,
         MOCK_TOKEN_AMOUNT_RECIPIENTS,
@@ -522,9 +522,9 @@ describe('tx-unshield', () => {
     ).rejectedWith('Invalid proof for this transaction. No proof found.');
   });
 
-  it('Should error on populate unshield tx when params changed (invalid cached proof)', async () => {
+  it('Should error on populate decrypt tx when params changed (invalid cached proof)', async () => {
     stubGasEstimateSuccess();
-    await generateUnshieldProof(
+    await generateDecryptProof(
       NetworkName.Polygon,
       railgunWallet.id,
       MOCK_DB_ENCRYPTION_KEY,
@@ -536,7 +536,7 @@ describe('tx-unshield', () => {
       () => {}, // progressCallback
     );
     await expect(
-      populateProvedUnshield(
+      populateProvedDecrypt(
         NetworkName.Polygon,
         railgunWallet.id,
         MOCK_TOKEN_AMOUNT_RECIPIENTS_DIFFERENT,
@@ -553,11 +553,11 @@ describe('tx-unshield', () => {
 
   // UNSHIELD BASE TOKEN - PROVE AND SEND
 
-  it('Should populate tx for valid Unshield Base Token', async () => {
+  it('Should populate tx for valid Decrypt Base Token', async () => {
     stubGasEstimateSuccess();
     setCachedProvedTransaction(undefined);
-    spyOnSetUnshield();
-    await generateUnshieldBaseTokenProof(
+    spyOnSetDecrypt();
+    await generateDecryptBaseTokenProof(
       NetworkName.Polygon,
       MOCK_ETH_WALLET_ADDRESS,
       railgunWallet.id,
@@ -568,8 +568,8 @@ describe('tx-unshield', () => {
       overallBatchMinGasPrice,
       () => {}, // progressCallback
     );
-    expect(addUnshieldDataSpy.called).to.be.true;
-    expect(addUnshieldDataSpy.args).to.deep.equal([
+    expect(addDecryptDataSpy.called).to.be.true;
+    expect(addDecryptDataSpy.args).to.deep.equal([
       [
         {
           toAddress: polygonRelayAdaptContract,
@@ -587,7 +587,7 @@ describe('tx-unshield', () => {
         },
       ], // Actual prove
     ]);
-    const populateResponse = await populateProvedUnshieldBaseToken(
+    const populateResponse = await populateProvedDecryptBaseToken(
       NetworkName.Polygon,
       MOCK_ETH_WALLET_ADDRESS,
       railgunWallet.id,
@@ -610,10 +610,10 @@ describe('tx-unshield', () => {
     expect(transaction.type).to.equal(1);
   }).timeout(60000);
 
-  it('Should error on populate tx for invalid Unshield Base Token', async () => {
+  it('Should error on populate tx for invalid Decrypt Base Token', async () => {
     stubGasEstimateSuccess();
     await expect(
-      populateProvedUnshieldBaseToken(
+      populateProvedDecryptBaseToken(
         NetworkName.Polygon,
         MOCK_ETH_WALLET_ADDRESS,
         railgunWallet.id,
@@ -628,11 +628,11 @@ describe('tx-unshield', () => {
     );
   });
 
-  it('Should error on populate Unshield Base Token tx for unproved transaction', async () => {
+  it('Should error on populate Decrypt Base Token tx for unproved transaction', async () => {
     stubGasEstimateSuccess();
     setCachedProvedTransaction(undefined);
     await expect(
-      populateProvedUnshieldBaseToken(
+      populateProvedDecryptBaseToken(
         NetworkName.Polygon,
         railgunWallet.id,
         MOCK_ETH_WALLET_ADDRESS,
@@ -645,9 +645,9 @@ describe('tx-unshield', () => {
     ).rejectedWith('Invalid proof for this transaction. No proof found.');
   });
 
-  it('Should error on populate Unshield Base Token tx when params changed (invalid cached proof)', async () => {
+  it('Should error on populate Decrypt Base Token tx when params changed (invalid cached proof)', async () => {
     stubGasEstimateSuccess();
-    await generateUnshieldBaseTokenProof(
+    await generateDecryptBaseTokenProof(
       NetworkName.Polygon,
       MOCK_ETH_WALLET_ADDRESS,
       railgunWallet.id,
@@ -659,7 +659,7 @@ describe('tx-unshield', () => {
       () => {}, // progressCallback
     );
     await expect(
-      populateProvedUnshieldBaseToken(
+      populateProvedDecryptBaseToken(
         NetworkName.Polygon,
         MOCK_ETH_WALLET_ADDRESS,
         railgunWallet.id,

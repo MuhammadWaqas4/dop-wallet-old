@@ -22,7 +22,7 @@ import {
   NetworkName,
   RailgunReceiveERC20Amount,
   RailgunSendERC20Amount,
-  RailgunUnshieldERC20Amount,
+  RailgunDecryptERC20Amount,
   TransactionHistoryItem,
   TransactionHistoryItemCategory,
   isDefined,
@@ -71,10 +71,10 @@ const MOCKED_TRANSFER_SEND_TRX: TransactionHistoryItem = {
     },
   ],
   receiveERC20Amounts: [],
-  unshieldERC20Amounts: [],
+  decryptERC20Amounts: [],
   receiveNFTAmounts: [],
   transferNFTAmounts: [],
-  unshieldNFTAmounts: [],
+  decryptNFTAmounts: [],
   version: 3,
   category: TransactionHistoryItemCategory.TransferSendERC20s,
   timestamp: 1678801493,
@@ -87,7 +87,7 @@ const receiveERC20AmountsReceive: RailgunReceiveERC20Amount[] = [
     memoText: 'este va a ser un memo corto',
     senderAddress:
       '0zk1qyy0deg6tdmfum0dcxj8j69p9ue9emvyyuv46ltdrxcmfr06wafh8rv7j6fe3z53lalv6k0cvxsap0xqpcgjnplrkrz5nsykud3u5nstfclh96k4uwwcq8un6tm',
-    shieldFee: '',
+    encryptFee: '',
   },
 ];
 const MOCKED_TRANSFER_RECEIVE_TRX: TransactionHistoryItem = {
@@ -96,20 +96,20 @@ const MOCKED_TRANSFER_RECEIVE_TRX: TransactionHistoryItem = {
   transferERC20Amounts: [],
   changeERC20Amounts: [],
   receiveERC20Amounts: receiveERC20AmountsReceive,
-  unshieldERC20Amounts: [],
+  decryptERC20Amounts: [],
   receiveNFTAmounts: [],
   transferNFTAmounts: [],
-  unshieldNFTAmounts: [],
+  decryptNFTAmounts: [],
   version: 0,
   category: TransactionHistoryItemCategory.TransferReceiveERC20s,
   timestamp: 1681132187.844,
 };
 
-const receiveERC20AmountsShield: RailgunReceiveERC20Amount[] = [
+const receiveERC20AmountsEncrypt: RailgunReceiveERC20Amount[] = [
   {
     tokenAddress: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
     amount: BigInt('0x1bafa9ee16e78000'),
-    shieldFee: '0x11c37937e08000',
+    encryptFee: '0x11c37937e08000',
     senderAddress: '',
     memoText: '',
   },
@@ -119,22 +119,22 @@ const MOCKED_SHIELD_TRX: TransactionHistoryItem = {
   blockNumber: 100,
   transferERC20Amounts: [],
   changeERC20Amounts: [],
-  receiveERC20Amounts: receiveERC20AmountsShield,
-  unshieldERC20Amounts: [],
+  receiveERC20Amounts: receiveERC20AmountsEncrypt,
+  decryptERC20Amounts: [],
   receiveNFTAmounts: [],
   transferNFTAmounts: [],
-  unshieldNFTAmounts: [],
+  decryptNFTAmounts: [],
   version: 0,
-  category: TransactionHistoryItemCategory.ShieldERC20s,
+  category: TransactionHistoryItemCategory.EncryptERC20s,
   timestamp: 1680269703,
 };
 
-const unshieldERC20AmountsUnshield: RailgunUnshieldERC20Amount[] = [
+const decryptERC20AmountsDecrypt: RailgunDecryptERC20Amount[] = [
   {
     tokenAddress: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
     amount: BigInt('0x06316e3f4d951280'),
     recipientAddress: '0xc7FfA542736321A3dd69246d73987566a5486968',
-    unshieldFee: '0x03f937fa6b8580',
+    decryptFee: '0x03f937fa6b8580',
     walletSource: 'railway web',
     memoText: '',
   },
@@ -145,12 +145,12 @@ const MOCKED_UNSHIELD_TRX: TransactionHistoryItem = {
   transferERC20Amounts: [],
   changeERC20Amounts: [],
   receiveERC20Amounts: [],
-  unshieldERC20Amounts: unshieldERC20AmountsUnshield,
+  decryptERC20Amounts: decryptERC20AmountsDecrypt,
   receiveNFTAmounts: [],
   transferNFTAmounts: [],
-  unshieldNFTAmounts: [],
+  decryptNFTAmounts: [],
   version: 3,
-  category: TransactionHistoryItemCategory.UnshieldERC20s,
+  category: TransactionHistoryItemCategory.DecryptERC20s,
   timestamp: 1678821969,
 };
 
@@ -158,17 +158,17 @@ const receiveERC20AmountsUnknow: RailgunReceiveERC20Amount[] = [
   {
     tokenAddress: '0x8f3cf7ad23cd3cadbd9735aff958023239c6a063',
     amount: BigInt('0x0f3603f585000c34'),
-    shieldFee: '0x09c26a7ae13400',
+    encryptFee: '0x09c26a7ae13400',
     senderAddress: '',
     memoText: '',
   },
 ];
-const unshieldERC20AmountsUnknow: RailgunUnshieldERC20Amount[] = [
+const decryptERC20AmountsUnknow: RailgunDecryptERC20Amount[] = [
   {
     tokenAddress: '0x0d500b1d8e8ef31e21c99d1db9a6444d3adf1270',
     amount: BigInt('0x0dd7d4f70b73c000'),
     recipientAddress: '0xc7FfA542736321A3dd69246d73987566a5486968',
-    unshieldFee: '0x08e1bc9bf04000',
+    decryptFee: '0x08e1bc9bf04000',
     memoText: '',
     walletSource: 'railway web',
   },
@@ -188,10 +188,10 @@ const MOCKED_UNKNOWN_SWAP_TRX: TransactionHistoryItem = {
     },
   ],
   receiveERC20Amounts: receiveERC20AmountsUnknow,
-  unshieldERC20Amounts: unshieldERC20AmountsUnknow,
+  decryptERC20Amounts: decryptERC20AmountsUnknow,
   receiveNFTAmounts: [],
   transferNFTAmounts: [],
-  unshieldNFTAmounts: [],
+  decryptNFTAmounts: [],
   version: 3,
   category: TransactionHistoryItemCategory.Unknown,
   timestamp: 1680269870,
@@ -240,9 +240,9 @@ describe('transaction-history', () => {
       TransactionHistoryItemCategory.TransferSendERC20s,
     );
   });
-  it('Should get ShieldERC20s category for transaction history item', () => {
+  it('Should get EncryptERC20s category for transaction history item', () => {
     const category = categoryForTransactionHistoryItem(MOCKED_SHIELD_TRX);
-    expect(category).to.equal(TransactionHistoryItemCategory.ShieldERC20s);
+    expect(category).to.equal(TransactionHistoryItemCategory.EncryptERC20s);
   });
   it('Should get TransferReceiveERC20s category for transaction history item', () => {
     const category = categoryForTransactionHistoryItem(
@@ -252,8 +252,8 @@ describe('transaction-history', () => {
       TransactionHistoryItemCategory.TransferReceiveERC20s,
     );
   });
-  it('Should get UnshieldERC20s category for transaction history item', () => {
+  it('Should get DecryptERC20s category for transaction history item', () => {
     const category = categoryForTransactionHistoryItem(MOCKED_UNSHIELD_TRX);
-    expect(category).to.equal(TransactionHistoryItemCategory.UnshieldERC20s);
+    expect(category).to.equal(TransactionHistoryItemCategory.DecryptERC20s);
   });
 });

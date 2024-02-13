@@ -155,7 +155,7 @@ export const generateTransact = async (
   return transaction;
 };
 
-export const generateUnshieldBaseToken = async (
+export const generateDecryptBaseToken = async (
   txs: TransactionStruct[],
   networkName: NetworkName,
   toWalletAddress: string,
@@ -167,7 +167,7 @@ export const generateUnshieldBaseToken = async (
 
   const relayAdaptContract = getRelayAdaptContractForNetwork(networkName);
 
-  const transaction = await relayAdaptContract.populateUnshieldBaseToken(
+  const transaction = await relayAdaptContract.populateDecryptBaseToken(
     txs,
     toWalletAddress,
     relayAdaptParamsRandom,
@@ -285,9 +285,9 @@ const addTransactionOutputsERC20 = (
       break;
     }
     case ProofType.CrossContractCalls:
-    case ProofType.UnshieldBaseToken:
-    case ProofType.Unshield: {
-      addTransactionOutputsUnshieldERC20(
+    case ProofType.DecryptBaseToken:
+    case ProofType.Decrypt: {
+      addTransactionOutputsDecryptERC20(
         transactionBatch,
         erc20AmountRecipient,
         false, // allowOverride
@@ -317,9 +317,9 @@ const addTransactionOutputsNFT = (
       break;
     }
     case ProofType.CrossContractCalls:
-    case ProofType.UnshieldBaseToken:
-    case ProofType.Unshield: {
-      addTransactionOutputsUnshieldNFT(
+    case ProofType.DecryptBaseToken:
+    case ProofType.Decrypt: {
+      addTransactionOutputsDecryptNFT(
         transactionBatch,
         nftAmountRecipient,
         false, // allowOverride
@@ -349,7 +349,7 @@ const addTransactionOutputsTransferERC20 = (
   );
 };
 
-const addTransactionOutputsUnshieldERC20 = (
+const addTransactionOutputsDecryptERC20 = (
   transactionBatch: TransactionBatch,
   erc20AmountRecipient: RailgunERC20AmountRecipient,
   allowOverride?: boolean,
@@ -361,7 +361,7 @@ const addTransactionOutputsUnshieldERC20 = (
 
   const tokenData = getTokenDataERC20(erc20AmountRecipient.tokenAddress);
 
-  transactionBatch.addUnshieldData({
+  transactionBatch.addDecryptData({
     toAddress: erc20AmountRecipient.recipientAddress,
     value: amount,
     tokenData,
@@ -388,7 +388,7 @@ const addTransactionOutputsTransferNFT = (
   );
 };
 
-const addTransactionOutputsUnshieldNFT = (
+const addTransactionOutputsDecryptNFT = (
   transactionBatch: TransactionBatch,
   nftAmountRecipient: RailgunNFTAmountRecipient,
   allowOverride?: boolean,
@@ -408,7 +408,7 @@ const addTransactionOutputsUnshieldNFT = (
   const value: bigint =
     nftTokenType === NFTTokenType.ERC721 ? ERC721_NOTE_VALUE : amount;
 
-  transactionBatch.addUnshieldData({
+  transactionBatch.addDecryptData({
     toAddress: recipientAddress,
     value,
     tokenData,
