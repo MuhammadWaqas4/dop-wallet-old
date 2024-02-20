@@ -89,8 +89,8 @@ export type Query = {
   legacyGeneratedCommitments: Array<LegacyGeneratedCommitment>;
   legacyEncryptedCommitment?: Maybe<LegacyEncryptedCommitment>;
   legacyEncryptedCommitments: Array<LegacyEncryptedCommitment>;
-  shieldCommitment?: Maybe<ShieldCommitment>;
-  shieldCommitments: Array<ShieldCommitment>;
+  encryptCommitment?: Maybe<EncryptCommitment>;
+  encryptCommitments: Array<EncryptCommitment>;
   transactCommitment?: Maybe<TransactCommitment>;
   transactCommitments: Array<TransactCommitment>;
   unshield?: Maybe<Unshield>;
@@ -215,18 +215,18 @@ export type QuerylegacyEncryptedCommitmentsArgs = {
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
-export type QueryshieldCommitmentArgs = {
+export type QueryencryptCommitmentArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
-export type QueryshieldCommitmentsArgs = {
+export type QueryencryptCommitmentsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<ShieldCommitment_orderBy>;
+  orderBy?: InputMaybe<EncryptCommitment_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<ShieldCommitment_filter>;
+  where?: InputMaybe<EncryptCommitment_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -314,8 +314,8 @@ export type Subscription = {
   legacyGeneratedCommitments: Array<LegacyGeneratedCommitment>;
   legacyEncryptedCommitment?: Maybe<LegacyEncryptedCommitment>;
   legacyEncryptedCommitments: Array<LegacyEncryptedCommitment>;
-  shieldCommitment?: Maybe<ShieldCommitment>;
-  shieldCommitments: Array<ShieldCommitment>;
+  encryptCommitment?: Maybe<EncryptCommitment>;
+  encryptCommitments: Array<EncryptCommitment>;
   transactCommitment?: Maybe<TransactCommitment>;
   transactCommitments: Array<TransactCommitment>;
   unshield?: Maybe<Unshield>;
@@ -440,18 +440,18 @@ export type SubscriptionlegacyEncryptedCommitmentsArgs = {
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
-export type SubscriptionshieldCommitmentArgs = {
+export type SubscriptionencryptCommitmentArgs = {
   id: Scalars['ID'];
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
 
-export type SubscriptionshieldCommitmentsArgs = {
+export type SubscriptionencryptCommitmentsArgs = {
   skip?: InputMaybe<Scalars['Int']>;
   first?: InputMaybe<Scalars['Int']>;
-  orderBy?: InputMaybe<ShieldCommitment_orderBy>;
+  orderBy?: InputMaybe<EncryptCommitment_orderBy>;
   orderDirection?: InputMaybe<OrderDirection>;
-  where?: InputMaybe<ShieldCommitment_filter>;
+  where?: InputMaybe<EncryptCommitment_filter>;
   block?: InputMaybe<Block_height>;
   subgraphError?: _SubgraphErrorPolicy_;
 };
@@ -770,7 +770,7 @@ export type CommitmentPreimage_orderBy =
   | 'value';
 
 export type CommitmentType =
-  | 'ShieldCommitment'
+  | 'EncryptCommitment'
   | 'TransactCommitment'
   | 'LegacyGeneratedCommitment'
   | 'LegacyEncryptedCommitment';
@@ -1274,7 +1274,7 @@ export type Nullifier_orderBy =
 /** Defines the order direction, either ascending or descending */
 export type OrderDirection = 'asc' | 'desc';
 
-export type ShieldCommitment = Commitment & {
+export type EncryptCommitment = Commitment & {
   id: Scalars['Bytes'];
   blockNumber: Scalars['BigInt'];
   blockTimestamp: Scalars['BigInt'];
@@ -1286,11 +1286,11 @@ export type ShieldCommitment = Commitment & {
   hash: Scalars['BigInt'];
   preimage: CommitmentPreimage;
   encryptedBundle: Array<Scalars['Bytes']>;
-  shieldKey: Scalars['Bytes'];
+  encryptKey: Scalars['Bytes'];
   fee?: Maybe<Scalars['BigInt']>;
 };
 
-export type ShieldCommitment_filter = {
+export type EncryptCommitment_filter = {
   id?: InputMaybe<Scalars['Bytes']>;
   id_not?: InputMaybe<Scalars['Bytes']>;
   id_gt?: InputMaybe<Scalars['Bytes']>;
@@ -1390,16 +1390,16 @@ export type ShieldCommitment_filter = {
   encryptedBundle_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
   encryptedBundle_not_contains?: InputMaybe<Array<Scalars['Bytes']>>;
   encryptedBundle_not_contains_nocase?: InputMaybe<Array<Scalars['Bytes']>>;
-  shieldKey?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_not?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_gt?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_lt?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_gte?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_lte?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  shieldKey_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
-  shieldKey_contains?: InputMaybe<Scalars['Bytes']>;
-  shieldKey_not_contains?: InputMaybe<Scalars['Bytes']>;
+  encryptKey?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_not?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_gt?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_lt?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_gte?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_lte?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  encryptKey_not_in?: InputMaybe<Array<Scalars['Bytes']>>;
+  encryptKey_contains?: InputMaybe<Scalars['Bytes']>;
+  encryptKey_not_contains?: InputMaybe<Scalars['Bytes']>;
   fee?: InputMaybe<Scalars['BigInt']>;
   fee_not?: InputMaybe<Scalars['BigInt']>;
   fee_gt?: InputMaybe<Scalars['BigInt']>;
@@ -1410,11 +1410,11 @@ export type ShieldCommitment_filter = {
   fee_not_in?: InputMaybe<Array<Scalars['BigInt']>>;
   /** Filter for the block changed event. */
   _change_block?: InputMaybe<BlockChangedFilter>;
-  and?: InputMaybe<Array<InputMaybe<ShieldCommitment_filter>>>;
-  or?: InputMaybe<Array<InputMaybe<ShieldCommitment_filter>>>;
+  and?: InputMaybe<Array<InputMaybe<EncryptCommitment_filter>>>;
+  or?: InputMaybe<Array<InputMaybe<EncryptCommitment_filter>>>;
 };
 
-export type ShieldCommitment_orderBy =
+export type EncryptCommitment_orderBy =
   | 'id'
   | 'blockNumber'
   | 'blockTimestamp'
@@ -1429,7 +1429,7 @@ export type ShieldCommitment_orderBy =
   | 'preimage__npk'
   | 'preimage__value'
   | 'encryptedBundle'
-  | 'shieldKey'
+  | 'encryptKey'
   | 'fee';
 
 export type Token = {
@@ -1908,7 +1908,7 @@ export type ResolversTypes = ResolversObject<{
   Commitment:
     | ResolversTypes['LegacyEncryptedCommitment']
     | ResolversTypes['LegacyGeneratedCommitment']
-    | ResolversTypes['ShieldCommitment']
+    | ResolversTypes['EncryptCommitment']
     | ResolversTypes['TransactCommitment'];
   CommitmentCiphertext: ResolverTypeWrapper<CommitmentCiphertext>;
   CommitmentCiphertext_filter: CommitmentCiphertext_filter;
@@ -1935,9 +1935,9 @@ export type ResolversTypes = ResolversObject<{
   Nullifier_filter: Nullifier_filter;
   Nullifier_orderBy: Nullifier_orderBy;
   OrderDirection: OrderDirection;
-  ShieldCommitment: ResolverTypeWrapper<ShieldCommitment>;
-  ShieldCommitment_filter: ShieldCommitment_filter;
-  ShieldCommitment_orderBy: ShieldCommitment_orderBy;
+  EncryptCommitment: ResolverTypeWrapper<EncryptCommitment>;
+  EncryptCommitment_filter: EncryptCommitment_filter;
+  EncryptCommitment_orderBy: EncryptCommitment_orderBy;
   String: ResolverTypeWrapper<Scalars['String']>;
   Token: ResolverTypeWrapper<Token>;
   TokenType: TokenType;
@@ -1969,7 +1969,7 @@ export type ResolversParentTypes = ResolversObject<{
   Commitment:
     | ResolversParentTypes['LegacyEncryptedCommitment']
     | ResolversParentTypes['LegacyGeneratedCommitment']
-    | ResolversParentTypes['ShieldCommitment']
+    | ResolversParentTypes['EncryptCommitment']
     | ResolversParentTypes['TransactCommitment'];
   CommitmentCiphertext: CommitmentCiphertext;
   CommitmentCiphertext_filter: CommitmentCiphertext_filter;
@@ -1987,8 +1987,8 @@ export type ResolversParentTypes = ResolversObject<{
   LegacyGeneratedCommitment_filter: LegacyGeneratedCommitment_filter;
   Nullifier: Nullifier;
   Nullifier_filter: Nullifier_filter;
-  ShieldCommitment: ShieldCommitment;
-  ShieldCommitment_filter: ShieldCommitment_filter;
+  EncryptCommitment: EncryptCommitment;
+  EncryptCommitment_filter: EncryptCommitment_filter;
   String: Scalars['String'];
   Token: Token;
   Token_filter: Token_filter;
@@ -2134,18 +2134,18 @@ export type QueryResolvers<
       'skip' | 'first' | 'subgraphError'
     >
   >;
-  shieldCommitment?: Resolver<
-    Maybe<ResolversTypes['ShieldCommitment']>,
+  encryptCommitment?: Resolver<
+    Maybe<ResolversTypes['EncryptCommitment']>,
     ParentType,
     ContextType,
-    RequireFields<QueryshieldCommitmentArgs, 'id' | 'subgraphError'>
+    RequireFields<QueryencryptCommitmentArgs, 'id' | 'subgraphError'>
   >;
-  shieldCommitments?: Resolver<
-    Array<ResolversTypes['ShieldCommitment']>,
+  encryptCommitments?: Resolver<
+    Array<ResolversTypes['EncryptCommitment']>,
     ParentType,
     ContextType,
     RequireFields<
-      QueryshieldCommitmentsArgs,
+      QueryencryptCommitmentsArgs,
       'skip' | 'first' | 'subgraphError'
     >
   >;
@@ -2337,20 +2337,20 @@ export type SubscriptionResolvers<
       'skip' | 'first' | 'subgraphError'
     >
   >;
-  shieldCommitment?: SubscriptionResolver<
-    Maybe<ResolversTypes['ShieldCommitment']>,
-    'shieldCommitment',
+  encryptCommitment?: SubscriptionResolver<
+    Maybe<ResolversTypes['EncryptCommitment']>,
+    'encryptCommitment',
     ParentType,
     ContextType,
-    RequireFields<SubscriptionshieldCommitmentArgs, 'id' | 'subgraphError'>
+    RequireFields<SubscriptionencryptCommitmentArgs, 'id' | 'subgraphError'>
   >;
-  shieldCommitments?: SubscriptionResolver<
-    Array<ResolversTypes['ShieldCommitment']>,
-    'shieldCommitments',
+  encryptCommitments?: SubscriptionResolver<
+    Array<ResolversTypes['EncryptCommitment']>,
+    'encryptCommitments',
     ParentType,
     ContextType,
     RequireFields<
-      SubscriptionshieldCommitmentsArgs,
+      SubscriptionencryptCommitmentsArgs,
       'skip' | 'first' | 'subgraphError'
     >
   >;
@@ -2461,7 +2461,7 @@ export type CommitmentResolvers<
   __resolveType: TypeResolveFn<
     | 'LegacyEncryptedCommitment'
     | 'LegacyGeneratedCommitment'
-    | 'ShieldCommitment'
+    | 'EncryptCommitment'
     | 'TransactCommitment',
     ParentType,
     ContextType
@@ -2608,9 +2608,9 @@ export type NullifierResolvers<
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
 
-export type ShieldCommitmentResolvers<
+export type EncryptCommitmentResolvers<
   ContextType = MeshContext,
-  ParentType extends ResolversParentTypes['ShieldCommitment'] = ResolversParentTypes['ShieldCommitment'],
+  ParentType extends ResolversParentTypes['EncryptCommitment'] = ResolversParentTypes['EncryptCommitment'],
 > = ResolversObject<{
   id?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
   blockNumber?: Resolver<ResolversTypes['BigInt'], ParentType, ContextType>;
@@ -2639,7 +2639,7 @@ export type ShieldCommitmentResolvers<
     ParentType,
     ContextType
   >;
-  shieldKey?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
+  encryptKey?: Resolver<ResolversTypes['Bytes'], ParentType, ContextType>;
   fee?: Resolver<Maybe<ResolversTypes['BigInt']>, ParentType, ContextType>;
   __isTypeOf?: IsTypeOfResolverFn<ParentType, ContextType>;
 }>;
@@ -2738,7 +2738,7 @@ export type Resolvers<ContextType = MeshContext> = ResolversObject<{
   LegacyEncryptedCommitment?: LegacyEncryptedCommitmentResolvers<ContextType>;
   LegacyGeneratedCommitment?: LegacyGeneratedCommitmentResolvers<ContextType>;
   Nullifier?: NullifierResolvers<ContextType>;
-  ShieldCommitment?: ShieldCommitmentResolvers<ContextType>;
+  EncryptCommitment?: EncryptCommitmentResolvers<ContextType>;
   Token?: TokenResolvers<ContextType>;
   TransactCommitment?: TransactCommitmentResolvers<ContextType>;
   Unshield?: UnshieldResolvers<ContextType>;
@@ -2863,7 +2863,7 @@ export async function getMeshOptions(): Promise<GetMeshOptions> {
     name: 'goerli',
     config: {
       endpoint:
-        'https://api.thegraph.com/subgraphs/name/ammarsjw/dop-goerli',
+        'https://api.thegraph.com/subgraphs/name/waleed-shafiq/dop-goerli',
     },
     baseDir,
     cache,
@@ -3145,7 +3145,7 @@ export type CommitmentsQuery = {
         };
       })
     | (Pick<
-        ShieldCommitment,
+        EncryptCommitment,
         | 'id'
         | 'blockNumber'
         | 'blockTimestamp'
@@ -3155,7 +3155,7 @@ export type CommitmentsQuery = {
         | 'treePosition'
         | 'commitmentType'
         | 'hash'
-        | 'shieldKey'
+        | 'encryptKey'
         | 'fee'
         | 'encryptedBundle'
       > & {
@@ -3291,7 +3291,7 @@ export const CommitmentsDocument = gql`
           memo
         }
       }
-      ... on ShieldCommitment {
+      ... on EncryptCommitment {
         id
         blockNumber
         blockTimestamp
@@ -3301,7 +3301,7 @@ export const CommitmentsDocument = gql`
         treePosition
         commitmentType
         hash
-        shieldKey
+        encryptKey
         fee
         encryptedBundle
         preimage {

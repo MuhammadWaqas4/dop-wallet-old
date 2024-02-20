@@ -7,7 +7,7 @@ import {
   LegacyGeneratedCommitment,
   CommitmentType,
   LegacyEncryptedCommitment,
-  ShieldCommitment,
+  EncryptCommitment,
   TransactCommitment,
   PreImage,
   TokenData,
@@ -25,7 +25,7 @@ import {
   TokenType as GraphTokenType,
   LegacyGeneratedCommitment as GraphLegacyGeneratedCommitment,
   LegacyEncryptedCommitment as GraphLegacyEncryptedCommitment,
-  ShieldCommitment as GraphShieldCommitment,
+  EncryptCommitment as GraphEncryptCommitment,
   TransactCommitment as GraphTransactCommitment,
   CommitmentPreimage as GraphCommitmentPreimage,
   LegacyCommitmentCiphertext as GraphLegacyCommitmentCiphertext,
@@ -39,7 +39,7 @@ import { isDefined } from 'dop-sharedmodels';
 export type GraphCommitment =
   | GraphLegacyEncryptedCommitment
   | GraphLegacyGeneratedCommitment
-  | GraphShieldCommitment
+  | GraphEncryptCommitment
   | GraphTransactCommitment;
 
 export type GraphCommitmentBatch = {
@@ -119,8 +119,8 @@ const formatCommitment = (commitment: GraphCommitment): Commitment => {
       return formatLegacyEncryptedCommitment(
         commitment as GraphLegacyEncryptedCommitment,
       );
-    case 'ShieldCommitment':
-      return formatShieldCommitment(commitment as GraphShieldCommitment);
+    case 'EncryptCommitment':
+      return formatEncryptCommitment(commitment as GraphEncryptCommitment);
     case 'TransactCommitment':
       return formatTransactCommitment(commitment as GraphTransactCommitment);
   }
@@ -235,24 +235,24 @@ const formatLegacyEncryptedCommitment = (
   };
 };
 
-const formatShieldCommitment = (
-  commitment: GraphShieldCommitment,
-): ShieldCommitment => {
-  const shieldCommitment: ShieldCommitment = {
+const formatEncryptCommitment = (
+  commitment: GraphEncryptCommitment,
+): EncryptCommitment => {
+  const encryptCommitment: EncryptCommitment = {
     txid: formatTo32Bytes(commitment.transactionHash, false),
     timestamp: Number(commitment.blockTimestamp),
-    commitmentType: CommitmentType.ShieldCommitment,
+    commitmentType: CommitmentType.EncryptCommitment,
     hash: formatTo32Bytes(bigIntStringToHex(commitment.hash), false),
     preImage: formatPreImage(commitment.preimage),
     blockNumber: Number(commitment.blockNumber),
     encryptedBundle: commitment.encryptedBundle as [string, string, string],
-    shieldKey: commitment.shieldKey,
+    encryptKey: commitment.encryptKey,
     fee: isDefined(commitment.fee) ? commitment.fee.toString() : undefined,
   };
-  if (!isDefined(shieldCommitment.fee)) {
-    delete shieldCommitment.fee;
+  if (!isDefined(encryptCommitment.fee)) {
+    delete encryptCommitment.fee;
   }
-  return shieldCommitment;
+  return encryptCommitment;
 };
 
 const formatTransactCommitment = (

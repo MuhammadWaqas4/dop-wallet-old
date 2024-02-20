@@ -351,6 +351,23 @@ export const generateCrossContractCallsProof = async (
       parameters: relayAdaptParams,
     };
 
+
+    console.log("====== 4",
+      ProofType.CrossContractCalls,
+      networkName,
+      railgunWalletID,
+      encryptionKey,
+      false, // showSenderAddressToRecipient
+      undefined, // memoText
+      relayAdaptUnshieldERC20AmountRecipients,
+      relayAdaptUnshieldNFTAmountRecipients,
+      relayerFeeERC20AmountRecipient,
+      sendWithPublicWallet,
+      relayAdaptID,
+      false, // useDummyProof
+      overallBatchMinGasPrice,
+      progressCallback);
+
     // Create real transactions with relay adapt params.
     const transactions = await generateProofTransactions(
       ProofType.CrossContractCalls,

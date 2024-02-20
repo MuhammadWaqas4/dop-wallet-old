@@ -96,7 +96,7 @@ query Commitments($blockNumber: BigInt = 0) {
         memo
       }
     }
-    ... on ShieldCommitment {
+    ... on EncryptCommitment {
       id
       blockNumber
       blockTimestamp
@@ -106,7 +106,7 @@ query Commitments($blockNumber: BigInt = 0) {
       treePosition
       commitmentType
       hash
-      shieldKey
+      encryptKey
       fee
       encryptedBundle
       preimage {

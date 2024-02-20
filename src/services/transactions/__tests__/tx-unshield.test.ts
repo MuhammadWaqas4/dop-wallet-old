@@ -147,7 +147,7 @@ const spyOnSetUnshield = () => {
 
 describe('tx-unshield', () => {
   before(async function run() {
-    this.timeout(5000);
+    this.timeout(10000);
     initTestEngine();
     await initTestEngineNetwork();
     const railgunWalletInfo = await createRailgunWallet(

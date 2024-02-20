@@ -6,8 +6,11 @@ import brotliDecompress from 'brotli/decompress';
 
 const IPFS_GATEWAY = 'https://ipfs-lb.com';
 
-const MASTER_IPFS_HASH_ARTIFACTS =
-  'QmeBrG7pii1qTqsn7rusvDiqXopHPjCT9gR4PsmW7wXqZq';
+// const MASTER_IPFS_HASH_ARTIFACTS = 'QmeBrG7pii1qTqsn7rusvDiqXopHPjCT9gR4PsmW7wXqZq';
+// const MASTER_IPFS_HASH_ARTIFACTS = 'QmYsMzH1PkC8eQq8nZthZb4us6C9M2JYNjhBspUPHjpkdn';
+// const MASTER_IPFS_HASH_ARTIFACTS = 'QmNqY8bHBEHgj96GSU1eyMtyZo1z5yTaM7yjQ7F1TbKE1W';
+const MASTER_IPFS_HASH_ARTIFACTS = 'QmQfAYmWzxmHF1s7BYJ86MRNwEUPVoSLMsyMoF6A4xVKSy';
+
 
 export const artifactDownloadsDir = (artifactVariantString: string) => {
   return `artifacts-v2.1/${artifactVariantString}`;

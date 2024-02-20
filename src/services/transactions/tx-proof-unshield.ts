@@ -38,6 +38,23 @@ export const generateUnshieldProof = async (
   try {
     setCachedProvedTransaction(undefined);
 
+
+    console.log("====== 0",
+      ProofType.Unshield,
+      networkName,
+      railgunWalletID,
+      encryptionKey,
+      false, // showSenderAddressToRecipient
+      undefined, // memoText
+      erc20AmountRecipients,
+      nftAmountRecipients,
+      relayerFeeERC20AmountRecipient,
+      sendWithPublicWallet,
+      undefined, // relayAdaptID
+      false, // useDummyProof
+      overallBatchMinGasPrice,
+      progressCallback);
+
     const transactions = await generateProofTransactions(
       ProofType.Unshield,
       networkName,
@@ -151,6 +168,22 @@ export const generateUnshieldBaseTokenProof = async (
     const showSenderAddressToRecipient = false;
     const memoText: Optional<string> = undefined;
 
+
+    console.log("====== 1",
+      ProofType.Unshield,
+      networkName,
+      railgunWalletID,
+      encryptionKey,
+      false, // showSenderAddressToRecipient
+      undefined, // memoText
+      erc20AmountRecipients,
+      nftAmountRecipients,
+      relayerFeeERC20AmountRecipient,
+      sendWithPublicWallet,
+      undefined, // relayAdaptID
+      false, // useDummyProof
+      overallBatchMinGasPrice,
+      progressCallback);
     // Generate final txs with relay adapt ID.
     const transactions = await generateProofTransactions(
       ProofType.UnshieldBaseToken,

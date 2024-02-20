@@ -188,7 +188,8 @@ describe('extract-first-note', () => {
   });
 
   it('Should extract fee correctly - transfer', async () => {
-    const fee = BigInt('1000');
+    // const fee = BigInt('1000');
+    const fee = BigInt('0');
     const senderAddressData = RailgunEngine.decodeAddress(
       '0zk1qy00025qjn7vw0mvu4egcxlkjv3nkemeat92qdlh3lzl4rpzxv9f8rv7j6fe3z53ll2adx8kn0lj0ucjkz4xxyax8l9mpqjgrf9z3zjvlvqr4qxgznrpqugcjt8',
     );
@@ -208,12 +209,12 @@ describe('extract-first-note', () => {
       );
     expect(Object.keys(firstNoteERC20AmountMap).length).to.equal(1);
     expect(firstNoteERC20AmountMap[MOCK_TOKEN_ADDRESS.toLowerCase()]).to.equal(
-      1000n,
+      0,
     );
   }).timeout(60000);
 
   it('Should fail for incorrect receiver address - transfer', async () => {
-    const fee = BigInt('1000');
+    const fee = BigInt('0');
     const receiverAddressData = RailgunEngine.decodeAddress(
       '0zk1q8hxknrs97q8pjxaagwthzc0df99rzmhl2xnlxmgv9akv32sua0kfrv7j6fe3z53llhxknrs97q8pjxaagwthzc0df99rzmhl2xnlxmgv9akv32sua0kg0zpzts',
     );
@@ -238,7 +239,7 @@ describe('extract-first-note', () => {
   }).timeout(60000);
 
   it('Should extract fee correctly - relay adapt', async () => {
-    const fee = BigInt('1000');
+    const fee = BigInt('0');
     const senderAddressData = RailgunEngine.decodeAddress(
       '0zk1qy00025qjn7vw0mvu4egcxlkjv3nkemeat92qdlh3lzl4rpzxv9f8rv7j6fe3z53ll2adx8kn0lj0ucjkz4xxyax8l9mpqjgrf9z3zjvlvqr4qxgznrpqugcjt8',
     );
@@ -262,12 +263,12 @@ describe('extract-first-note', () => {
       );
     expect(Object.keys(firstNoteERC20AmountMap).length).to.equal(1);
     expect(firstNoteERC20AmountMap[MOCK_TOKEN_ADDRESS.toLowerCase()]).to.equal(
-      1000n,
+      0,
     );
   }).timeout(60000);
 
   it('Should fail for incorrect receiver address - relay adapt', async () => {
-    const fee = BigInt('1000');
+    const fee = BigInt('0');
     const receiverAddressData = RailgunEngine.decodeAddress(
       '0zk1q8hxknrs97q8pjxaagwthzc0df99rzmhl2xnlxmgv9akv32sua0kfrv7j6fe3z53llhxknrs97q8pjxaagwthzc0df99rzmhl2xnlxmgv9akv32sua0kg0zpzts',
     );

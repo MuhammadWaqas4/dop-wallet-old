@@ -29,6 +29,22 @@ export const generateTransferProof = async (
   try {
     setCachedProvedTransaction(undefined);
 
+
+    console.log("====== 2",
+      ProofType.Unshield,
+      networkName,
+      railgunWalletID,
+      encryptionKey,
+      false, // showSenderAddressToRecipient
+      undefined, // memoText
+      erc20AmountRecipients,
+      nftAmountRecipients,
+      relayerFeeERC20AmountRecipient,
+      sendWithPublicWallet,
+      undefined, // relayAdaptID
+      false, // useDummyProof
+      overallBatchMinGasPrice,
+      progressCallback);
     const transactions = await generateProofTransactions(
       ProofType.Transfer,
       networkName,

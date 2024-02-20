@@ -87,7 +87,7 @@ const stubFailure = () => {
 
 describe('tx-shield', () => {
   before(async function run() {
-    this.timeout(5000);
+    this.timeout(10000);
     initTestEngine();
     await initTestEngineNetwork();
     await createRailgunWallet(

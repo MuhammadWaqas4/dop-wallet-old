@@ -152,9 +152,11 @@ const loadProviderForNetwork = async (
   const network = NETWORK_CONFIG[networkName];
   const { proxyContract, relayAdaptContract, deploymentBlock, publicName } =
     network;
+  // eslint-disable-next-line
   if (!proxyContract) {
     throw new Error(`Could not find Proxy contract for network: ${publicName}`);
   }
+  // eslint-disable-next-line
   if (!relayAdaptContract) {
     throw new Error(
       `Could not find Relay Adapt contract for network: ${publicName}`,

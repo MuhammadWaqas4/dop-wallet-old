@@ -13,12 +13,12 @@ export const getAllShields = async (
 ) => {
   const engine = getEngine();
   const { chain } = NETWORK_CONFIG[networkName];
-  const shieldCommitments = await engine.getAllShieldCommitments(
+  const encryptCommitments = await engine.getAllEncryptCommitments(
     chain,
     startingBlock,
   );
 
-  return shieldCommitments.map(commitment => {
+  return encryptCommitments.map(commitment => {
     const shieldData: ShieldData = {
       txid: commitment.txid,
       hash: commitment.hash,

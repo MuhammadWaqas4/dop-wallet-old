@@ -8,7 +8,7 @@ sources:
   - name: goerli
     handler:
       graphql:
-        endpoint: https://api.thegraph.com/subgraphs/name/ammarsjw/dop-goerli
+        endpoint: https://api.thegraph.com/subgraphs/name/waleed-shafiq/dop-goerli
   - name: bsc
     handler:
       graphql:

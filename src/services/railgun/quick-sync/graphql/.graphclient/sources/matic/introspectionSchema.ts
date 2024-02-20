@@ -3660,7 +3660,7 @@ const schemaAST = {
           "kind": "EnumValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "ShieldCommitment"
+            "value": "EncryptCommitment"
           },
           "directives": []
         },
@@ -12789,7 +12789,7 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldCommitment"
+            "value": "encryptCommitment"
           },
           "arguments": [
             {
@@ -12862,7 +12862,7 @@ const schemaAST = {
             "kind": "NamedType",
             "name": {
               "kind": "Name",
-              "value": "ShieldCommitment"
+              "value": "EncryptCommitment"
             }
           },
           "directives": []
@@ -12871,7 +12871,7 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldCommitments"
+            "value": "encryptCommitments"
           },
           "arguments": [
             {
@@ -12922,7 +12922,7 @@ const schemaAST = {
                 "kind": "NamedType",
                 "name": {
                   "kind": "Name",
-                  "value": "ShieldCommitment_orderBy"
+                  "value": "EncryptCommitment_orderBy"
                 }
               },
               "directives": []
@@ -12952,7 +12952,7 @@ const schemaAST = {
                 "kind": "NamedType",
                 "name": {
                   "kind": "Name",
-                  "value": "ShieldCommitment_filter"
+                  "value": "EncryptCommitment_filter"
                 }
               },
               "directives": []
@@ -13015,7 +13015,7 @@ const schemaAST = {
                   "kind": "NamedType",
                   "name": {
                     "kind": "Name",
-                    "value": "ShieldCommitment"
+                    "value": "EncryptCommitment"
                   }
                 }
               }
@@ -14020,7 +14020,7 @@ const schemaAST = {
       "kind": "ObjectTypeDefinition",
       "name": {
         "kind": "Name",
-        "value": "ShieldCommitment"
+        "value": "EncryptCommitment"
       },
       "fields": [
         {
@@ -14242,7 +14242,7 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey"
+            "value": "encryptKey"
           },
           "arguments": [],
           "type": {
@@ -14289,7 +14289,7 @@ const schemaAST = {
       "kind": "InputObjectTypeDefinition",
       "name": {
         "kind": "Name",
-        "value": "ShieldCommitment_filter"
+        "value": "EncryptCommitment_filter"
       },
       "fields": [
         {
@@ -15937,7 +15937,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey"
+            "value": "encryptKey"
           },
           "type": {
             "kind": "NamedType",
@@ -15952,7 +15952,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey_not"
+            "value": "encryptKey_not"
           },
           "type": {
             "kind": "NamedType",
@@ -15967,7 +15967,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey_gt"
+            "value": "encryptKey_gt"
           },
           "type": {
             "kind": "NamedType",
@@ -15982,7 +15982,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey_lt"
+            "value": "encryptKey_lt"
           },
           "type": {
             "kind": "NamedType",
@@ -15997,7 +15997,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey_gte"
+            "value": "encryptKey_gte"
           },
           "type": {
             "kind": "NamedType",
@@ -16012,7 +16012,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey_lte"
+            "value": "encryptKey_lte"
           },
           "type": {
             "kind": "NamedType",
@@ -16027,7 +16027,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey_in"
+            "value": "encryptKey_in"
           },
           "type": {
             "kind": "ListType",
@@ -16048,7 +16048,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey_not_in"
+            "value": "encryptKey_not_in"
           },
           "type": {
             "kind": "ListType",
@@ -16069,7 +16069,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey_contains"
+            "value": "encryptKey_contains"
           },
           "type": {
             "kind": "NamedType",
@@ -16084,7 +16084,7 @@ const schemaAST = {
           "kind": "InputValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey_not_contains"
+            "value": "encryptKey_not_contains"
           },
           "type": {
             "kind": "NamedType",
@@ -16259,7 +16259,7 @@ const schemaAST = {
               "kind": "NamedType",
               "name": {
                 "kind": "Name",
-                "value": "ShieldCommitment_filter"
+                "value": "EncryptCommitment_filter"
               }
             }
           },
@@ -16277,7 +16277,7 @@ const schemaAST = {
               "kind": "NamedType",
               "name": {
                 "kind": "Name",
-                "value": "ShieldCommitment_filter"
+                "value": "EncryptCommitment_filter"
               }
             }
           },
@@ -16290,7 +16290,7 @@ const schemaAST = {
       "kind": "EnumTypeDefinition",
       "name": {
         "kind": "Name",
-        "value": "ShieldCommitment_orderBy"
+        "value": "EncryptCommitment_orderBy"
       },
       "values": [
         {
@@ -16409,7 +16409,7 @@ const schemaAST = {
           "kind": "EnumValueDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldKey"
+            "value": "encryptKey"
           },
           "directives": []
         },
@@ -18101,7 +18101,7 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldCommitment"
+            "value": "encryptCommitment"
           },
           "arguments": [
             {
@@ -18174,7 +18174,7 @@ const schemaAST = {
             "kind": "NamedType",
             "name": {
               "kind": "Name",
-              "value": "ShieldCommitment"
+              "value": "EncryptCommitment"
             }
           },
           "directives": []
@@ -18183,7 +18183,7 @@ const schemaAST = {
           "kind": "FieldDefinition",
           "name": {
             "kind": "Name",
-            "value": "shieldCommitments"
+            "value": "encryptCommitments"
           },
           "arguments": [
             {
@@ -18234,7 +18234,7 @@ const schemaAST = {
                 "kind": "NamedType",
                 "name": {
                   "kind": "Name",
-                  "value": "ShieldCommitment_orderBy"
+                  "value": "EncryptCommitment_orderBy"
                 }
               },
               "directives": []
@@ -18264,7 +18264,7 @@ const schemaAST = {
                 "kind": "NamedType",
                 "name": {
                   "kind": "Name",
-                  "value": "ShieldCommitment_filter"
+                  "value": "EncryptCommitment_filter"
                 }
               },
               "directives": []
@@ -18327,7 +18327,7 @@ const schemaAST = {
                   "kind": "NamedType",
                   "name": {
                     "kind": "Name",
-                    "value": "ShieldCommitment"
+                    "value": "EncryptCommitment"
                   }
                 }
               }
