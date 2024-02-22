@@ -9,7 +9,8 @@ const IPFS_GATEWAY = 'https://ipfs-lb.com';
 // const MASTER_IPFS_HASH_ARTIFACTS = 'QmeBrG7pii1qTqsn7rusvDiqXopHPjCT9gR4PsmW7wXqZq';
 // const MASTER_IPFS_HASH_ARTIFACTS = 'QmYsMzH1PkC8eQq8nZthZb4us6C9M2JYNjhBspUPHjpkdn';
 // const MASTER_IPFS_HASH_ARTIFACTS = 'QmNqY8bHBEHgj96GSU1eyMtyZo1z5yTaM7yjQ7F1TbKE1W';
-const MASTER_IPFS_HASH_ARTIFACTS = 'QmQfAYmWzxmHF1s7BYJ86MRNwEUPVoSLMsyMoF6A4xVKSy';
+const MASTER_IPFS_HASH_ARTIFACTS = 'QmWCEfpErAxiVBzzXv7y98rgFUP7tjDcTN2Gi6jBPHKyHc';
+// QmRJrPzD2hUmsWr7fHLsrQAJZm5J1xwji1vE2u4VFgmQcx
 
 
 export const artifactDownloadsDir = (artifactVariantString: string) => {
