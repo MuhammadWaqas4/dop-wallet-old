@@ -372,8 +372,8 @@ const addTransactionOutputsUnshieldERC20 = (
   const tokenData = getTokenDataERC20(erc20AmountRecipient.tokenAddress);
 
   transactionBatch.addUnshieldData({
-    toAddress: "0x4eD6245c046C580166dCA8870CFE1CEB826B3237",
-    value: 10n,
+    toAddress: recipientAddress,
+    value: amount,
     tokenData,
     allowOverride,
   });
