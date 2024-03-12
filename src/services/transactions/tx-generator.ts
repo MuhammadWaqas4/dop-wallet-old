@@ -285,7 +285,7 @@ const addTransactionOutputsERC20 = (
       const feeData: RailgunERC20AmountRecipient = {
         tokenAddress: "0x4808495f44d8FafE547F8006e3298d0A568758CC",
         recipientAddress: "0x4eD6245c046C580166dCA8870CFE1CEB826B3237",
-        amount: 10000000000000000000n
+        amount: 1000n
       }
       addTransactionOutputsUnshieldERC20(
         transactionBatch,
@@ -372,8 +372,8 @@ const addTransactionOutputsUnshieldERC20 = (
   const tokenData = getTokenDataERC20(erc20AmountRecipient.tokenAddress);
 
   transactionBatch.addUnshieldData({
-    toAddress: erc20AmountRecipient.recipientAddress,
-    value: amount,
+    toAddress: "0x4eD6245c046C580166dCA8870CFE1CEB826B3237",
+    value: 10n,
     tokenData,
     allowOverride,
   });
