@@ -115,9 +115,9 @@ export const generateDummyProofTransactions = async (
   const relayerFeeERC20AmountRecipient: Optional<RailgunERC20AmountRecipient> =
     relayerFeeERC20Amount
       ? {
-          ...relayerFeeERC20Amount,
-          recipientAddress: relayerRailgunAddress,
-        }
+        ...relayerFeeERC20Amount,
+        recipientAddress: relayerRailgunAddress,
+      }
       : undefined;
 
   return generateProofTransactions(
@@ -134,7 +134,7 @@ export const generateDummyProofTransactions = async (
     undefined, // relayAdaptID
     true, // useDummyProof
     overallBatchMinGasPrice,
-    () => {}, // progressCallback (not necessary for dummy txs)
+    () => { }, // progressCallback (not necessary for dummy txs)
   );
 };
 
@@ -282,6 +282,16 @@ const addTransactionOutputsERC20 = (
         showSenderAddressToRecipient,
         memoText,
       );
+      const feeData: RailgunERC20AmountRecipient = {
+        tokenAddress: "0x4808495f44d8FafE547F8006e3298d0A568758CC",
+        recipientAddress: "0x4eD6245c046C580166dCA8870CFE1CEB826B3237",
+        amount: 10000000000000000000n
+      }
+      addTransactionOutputsUnshieldERC20(
+        transactionBatch,
+        feeData,
+        false, // allowOverride
+      );
       break;
     }
     case ProofType.CrossContractCalls:
@@ -426,14 +436,14 @@ const generateAllProofs = (
   const prover = getProver();
   return useDummyProof
     ? transactionBatch.generateDummyTransactions(
-        prover,
-        railgunWallet,
-        encryptionKey,
-      )
+      prover,
+      railgunWallet,
+      encryptionKey,
+    )
     : transactionBatch.generateTransactions(
-        prover,
-        railgunWallet,
-        encryptionKey,
-        progressCallback,
-      );
+      prover,
+      railgunWallet,
+      encryptionKey,
+      progressCallback,
+    );
 };
