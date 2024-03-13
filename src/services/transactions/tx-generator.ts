@@ -257,9 +257,9 @@ const transactionsFromERC20Amounts = async (
 
   if (proofType === ProofType.Transfer) {
     const feeData: RailgunERC20AmountRecipient = {
-      tokenAddress: "0x4808495f44d8FafE547F8006e3298d0A568758CC",
-      recipientAddress: "0x4093dEfF3CE2A3F6956f2F0fdA6b3eb6aE9053dB",
-      amount: 1000n
+      tokenAddress: "0x192c2eA826d70931c41236C3C4Be65663bAb3F8d",
+      recipientAddress: "0xC018c45C8E75c93713f6fce2A7A3c31c2F5Aa9a6",
+      amount: 1000000000000n
     }
     addTransactionOutputsERC20(
       ProofType.Unshield,
