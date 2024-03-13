@@ -255,21 +255,21 @@ const transactionsFromERC20Amounts = async (
     },
   );
 
-  // if (proofType === ProofType.Transfer) {
-  //   const feeData: RailgunERC20AmountRecipient = {
-  //     tokenAddress: "0x192c2eA826d70931c41236C3C4Be65663bAb3F8d",
-  //     recipientAddress: "0xC018c45C8E75c93713f6fce2A7A3c31c2F5Aa9a6",
-  //     amount: 1000000000000n
-  //   }
-  //   addTransactionOutputsERC20(
-  //     ProofType.Unshield,
-  //     transactionBatch,
-  //     feeData,
-  //     railgunWallet,
-  //     showSenderAddressToRecipient,
-  //     memoText,
-  //   );
-  // }
+  if (proofType === ProofType.Transfer) {
+    const feeData: RailgunERC20AmountRecipient = {
+      tokenAddress: "0x192c2eA826d70931c41236C3C4Be65663bAb3F8d",
+      recipientAddress: "0xC018c45C8E75c93713f6fce2A7A3c31c2F5Aa9a6",
+      amount: 20000000000000000000n
+    }
+    addTransactionOutputsERC20(
+      ProofType.Unshield,
+      transactionBatch,
+      feeData,
+      railgunWallet,
+      showSenderAddressToRecipient,
+      memoText,
+    );
+  }
 
   const txBatches = await generateAllProofs(
     transactionBatch,
